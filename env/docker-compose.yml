@@ -11,7 +11,7 @@ services:
     ports: 
       - 11000:80
     volumes:
-      - ../php-server:/var/www/html
+      - ../api:/var/www/html
     env_file:
       - ./.env
     networks:
