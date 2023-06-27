@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  goldberg_server:
+    build: 
+        context: ..
+        dockerfile: ./env/server.Dockerfile
+        args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: goldberg_server
+    ports: 
+      - 11000:80
+    volumes:
+      - ../php-server:/var/www/html
+    env_file:
+      - ./.env
+    networks:
+      - goldberg_network
+networks:
+  goldberg_network:
+      driver: bridge

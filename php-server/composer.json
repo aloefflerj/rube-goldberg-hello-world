@@ -1,0 +1,14 @@
+{
+    "name": "aloefflerj/goldberg-hello-php-server",
+    "autoload": {
+        "psr-4": {
+            "Aloefflerj\\GoldbergHello\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Anderson Job Loeffler",
+            "email": "aloeffler.j@gmail.com"
+        }
+    ]
+}
