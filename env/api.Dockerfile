@@ -9,7 +9,7 @@ RUN apt-get install -y \
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 RUN a2enmod rewrite && service apache2 restart
 RUN docker-php-ext-install pdo pdo_mysql
-COPY ./php-server .
+COPY ./api .
 COPY --from=composer:2.3.7 /usr/bin/composer /usr/bin/composer
 
 COPY ./env/vhost.conf /etc/apache2/sites-available/000-default.conf

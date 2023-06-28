@@ -1,13 +1,13 @@
 version: '3.4'
 services:
-  goldberg_server:
+  api:
+    container_name: goldberg_api
     build: 
         context: ..
-        dockerfile: ./env/server.Dockerfile
+        dockerfile: ./env/api.Dockerfile
         args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
-    container_name: goldberg_server
     ports: 
       - 11000:80
     volumes:
@@ -16,6 +16,24 @@ services:
       - ./.env
     networks:
       - goldberg_network
+
+  client:
+    container_name: goldberg_client
+    build: 
+      context: ..
+      dockerfile: ./env/client.Dockerfile
+    ports:
+      - 12000:5173
+    env_file:
+      - .env
+    volumes:
+      - ../client:/app
+      - /app/node_modules
+    networks:
+      - goldberg_network
+    command: npm run dev
 networks:
   goldberg_network:
       driver: bridge
+volumes:
+  node_modules:
