@@ -8,12 +8,15 @@ services:
         args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
+    restart: unless-stopped
     ports: 
       - 11000:80
     volumes:
       - ../api:/var/www/html
     env_file:
       - ./.env
+    depends_on:
+      - mysql
     networks:
       - goldberg_network
 
@@ -22,6 +25,7 @@ services:
     build: 
       context: ..
       dockerfile: ./env/client.Dockerfile
+    restart: unless-stopped
     ports:
       - 12000:5173
     env_file:
@@ -32,8 +36,30 @@ services:
     networks:
       - goldberg_network
     command: npm run dev
+
+  mysql:
+    image: mysql:latest
+    container_name: goldberg_mysql
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # MYSQL_DATABASE: 'goldberg'
+      - MYSQL_USER=web
+      - MYSQL_PASSWORD=web
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 13000:3306
+    expose:
+      - 3306
+    volumes:
+      - my-db:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    networks:
+      - goldberg_network
+
 networks:
   goldberg_network:
       driver: bridge
 volumes:
   node_modules:
+  my-db:
