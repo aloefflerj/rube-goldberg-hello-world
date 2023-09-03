@@ -2,7 +2,7 @@
     "name": "aloefflerj/goldberg-hello-php-server",
     "autoload": {
         "psr-4": {
-            "Aloefflerj\\GoldbergHello\\": "src/"
+            "Aloefflerj\\UniverseOriginApi\\": "src/"
         }
     },
     "authors": [
@@ -14,6 +14,10 @@
     "require": {
         "slim/slim": "^4.12",
         "slim/psr7": "^1.6",
-        "php-di/slim-bridge": "^3.4"
+        "php-di/slim-bridge": "^3.4",
+        "ramsey/uuid": "^4.7"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.3"
     }
 }
