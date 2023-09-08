@@ -24,7 +24,7 @@ class Uuid implements \Stringable
         return $this->uuidString;
     }
 
-    public static function generate(
+    public static function new(
         UuidGenerator $uuidGenerator = new RamseyUuidGenerator()
     ): static {
         return new static((string)$uuidGenerator->generate());

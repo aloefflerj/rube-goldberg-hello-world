@@ -22,3 +22,6 @@ CREATE TABLE
         `charge` ENUM('negative', 'positive') NOT NULL,
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+
+GRANT ALL PRIVILEGES ON goldberg.* TO 'web'@'%'

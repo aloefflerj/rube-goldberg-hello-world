@@ -6,9 +6,14 @@ RUN apt-get install -y \
         wget \
         unzip \
         git
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions mysqli pdo pdo_mysql ds
+
 RUN a2enmod rewrite && service apache2 restart
-RUN docker-php-ext-install pdo pdo_mysql
+
 COPY ./api .
 COPY --from=composer:2.3.7 /usr/bin/composer /usr/bin/composer
 

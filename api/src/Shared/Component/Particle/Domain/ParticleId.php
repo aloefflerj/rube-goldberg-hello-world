@@ -1,6 +1,6 @@
 <?php
 
-namespace Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Particle;
+namespace Aloefflerj\UniverseOriginApi\Shared\Component\Particle\Domain;
 
 use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\ValueObject\Contracts\ValueObject;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\ValueObject\Identity\Id;
