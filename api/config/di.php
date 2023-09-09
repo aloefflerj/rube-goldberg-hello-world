@@ -5,7 +5,9 @@ use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\CreatePar
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\FetchParticlesAction;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\FindParticleAction;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Repository\ParticlesMysqlRepository;
-use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\ParticlesUseCase;
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\CreateParticleUseCase;
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\FetchParticlesUseCase;
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\FindParticlesUseCase;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contracts\DatabaseDriver;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\Drivers\Mysql\MysqlConnection;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\Drivers\Mysql\MysqlConnectionDsn;
@@ -38,7 +40,7 @@ $container->set('database', function (Container $c) {
 
 $container->set(FetchParticlesAction::class, function (Container $c) {
     return new FetchParticlesAction(
-        new ParticlesUseCase(
+        new FetchParticlesUseCase(
             $c->get(
                 ParticlesRepository::class
             )
@@ -48,7 +50,7 @@ $container->set(FetchParticlesAction::class, function (Container $c) {
 
 $container->set(FindParticleAction::class, function (Container $c) {
     return new FindParticleAction(
-        new ParticlesUseCase(
+        new FindParticlesUseCase(
             $c->get(
                 ParticlesRepository::class
             )
@@ -58,7 +60,7 @@ $container->set(FindParticleAction::class, function (Container $c) {
 
 $container->set(CreateParticleAction::class, function (Container $c) {
     return new CreateParticleAction(
-        new ParticlesUseCase(
+        new CreateParticleUseCase(
             $c->get(
                 ParticlesRepository::class
             )
