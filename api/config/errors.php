@@ -10,7 +10,7 @@ use Slim\Exception\HttpException;
 
 $app->addRoutingMiddleware();
 
-// REFACTOR: add custom error hanlder class (ApiErrorHandler)
+// REFACTOR: add custom error handler class (ApiErrorHandler)
 $customErrorHandler = function (
     ServerRequestInterface $request,
     Throwable $th,
@@ -18,7 +18,7 @@ $customErrorHandler = function (
     bool $logErrors,
     bool $logErrorDetails,
     ?LoggerInterface $logger = null
-) use ($app) {
+) use ($app, $container) {
     if ($logger) {
         $logger->error($th->getMessage());
     }
@@ -27,8 +27,7 @@ $customErrorHandler = function (
     $payload = new \stdClass();
     $payload->status = 500;
     $payload->msg = 'Internal server error.';
-    if ($logErrorDetails) $payload->details = $th->getTraceAsString();
-
+    if ($displayErrorDetails) $payload->details = $th->getTraceAsString();
 
     if ($th instanceof HttpRouteException || $th instanceof HttpException) {
         $statusCode = $th->getCode();
@@ -38,15 +37,24 @@ $customErrorHandler = function (
     }
 
     $response = $app->getResponseFactory()->createResponse($statusCode);
-    $response->getBody()->write(
-        json_encode(
-            $payload,
-            JSON_UNESCAPED_UNICODE
-        )
-    );
+
+    if ($container->get('development') && function_exists('dd')) {
+        dd($th);
+    } else {
+        $response->getBody()->write(
+            json_encode(
+                $payload,
+                JSON_UNESCAPED_UNICODE
+            )
+        );
+    }
 
     return $response;
 };
 
-$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+$errorMiddleware = $app->addErrorMiddleware(
+    $container->get('development'),
+    $container->get('development'),
+    $container->get('development')
+);
 $errorMiddleware->setDefaultErrorHandler($customErrorHandler);

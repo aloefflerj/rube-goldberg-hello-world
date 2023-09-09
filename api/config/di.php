@@ -23,6 +23,8 @@ $builder->addDefinitions([
 $container = $builder->build();
 
 $container->set('config', fn () => require __DIR__ . '/config.php');
+$container->set('env', fn (Container $c) => $c->get('config')['env']);
+$container->set('development', fn (Container $c) => $c->get('env') === 'dev');
 
 $container->set('database', function (Container $c) {
     $dbConfig = $c->get('config')['database'];
