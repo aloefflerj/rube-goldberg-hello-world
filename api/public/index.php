@@ -13,6 +13,7 @@ require_once __DIR__ . '/../config/di.php';
 
 $app = AppFactory::createFromContainer($container);
 
+require_once __DIR__ . '/../config/errors.php';
 require_once __DIR__ . '/../config/routes.php';
 
 $app->run();

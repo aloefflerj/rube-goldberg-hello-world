@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73c8a24c3843b95a8e6927b139bba851",
+    "content-hash": "5317ff950ae901a331645889019cd226",
     "packages": [
         {
             "name": "brick/math",
@@ -238,6 +238,64 @@
                 "source": "https://github.com/laravel/serializable-closure"
             },
             "time": "2023-07-14T13:56:28+00:00"
+        },
+        {
+            "name": "lukasoppermann/http-status",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lukasoppermann/http-status.git",
+                "reference": "8ef0326965cee820293071604990c83577ebf4de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lukasoppermann/http-status/zipball/8ef0326965cee820293071604990c83577ebf4de",
+                "reference": "8ef0326965cee820293071604990c83577ebf4de",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "league/csv": "^7.1",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lukasoppermann\\Httpstatus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukas Oppermann",
+                    "email": "lukas@vea.re",
+                    "homepage": "http://vea.re",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A minimal package for working with HTTP statuses.",
+            "homepage": "https://github.com/lukasoppermann/http-status",
+            "keywords": [
+                "httpstatus",
+                "status codes"
+            ],
+            "support": {
+                "issues": "https://github.com/lukasoppermann/http-status/issues",
+                "source": "https://github.com/lukasoppermann/http-status/tree/4.0.0"
+            },
+            "time": "2023-06-23T18:39:48+00:00"
         },
         {
             "name": "nikic/fast-route",

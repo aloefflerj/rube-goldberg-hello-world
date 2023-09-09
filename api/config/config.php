@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'database' => [
         'host' => $_ENV['MYSQL_HOST'],

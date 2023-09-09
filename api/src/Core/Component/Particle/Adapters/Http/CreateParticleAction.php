@@ -22,7 +22,6 @@ final class CreateParticleAction extends ApiAction
         array $args
     ): ResponseInterface {
         $body = json_decode($req->getBody()->getContents());
-        if (!$body) $body = new \stdClass();
         
         $this->requiredBodyField($body, 'charge');
 
