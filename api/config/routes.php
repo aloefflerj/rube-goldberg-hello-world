@@ -14,6 +14,6 @@ $app->get('/', function (RequestInterface $req, ResponseInterface $res, array $a
 });
 
 $app->group('/particles', function (RouteCollectorProxyInterface $group) {
-    $group->get('', FetchParticlesAction::class);
-    $group->get('/{id}', FindParticleAction::class);
+    $group->get('[/]', FetchParticlesAction::class);
+    $group->get('/{id}[/]', FindParticleAction::class);
 });

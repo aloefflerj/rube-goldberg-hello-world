@@ -8,6 +8,6 @@ use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Iterators\Con
 interface ParticlesRepository
 {
     public function __construct(DatabaseDriver $db);
-
     public function fetchAll(string $orderBy): RepositoryIterator;
+    public function findById(string $id): ?\stdClass;
 }

@@ -3,8 +3,10 @@
 namespace Aloefflerj\UniverseOriginApi\Shared\Infra\Drivers\Mysql;
 
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contracts\DatabaseDriver;
+use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contracts\QueryBinder;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contracts\QueryStatement;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Iterators\PDORepositoryIterator;
+use stdClass;
 
 final class MysqlDatabaseDriver implements DatabaseDriver
 {
@@ -31,9 +33,14 @@ final class MysqlDatabaseDriver implements DatabaseDriver
         return $this;
     }
 
-    public function bindValue(string $key, string $value, int $flags = \PDO::PARAM_STR): self
+    public function bindValue(QueryBinder $queryBinder): self
     {
-        $this->statement->bindValue($key, $value, $flags);
+        $this->statement->bindValue(
+            $queryBinder->getKey(),
+            $queryBinder->getValue(),
+            $queryBinder->getFlags()
+        );
+
         return $this;
     }
 
@@ -62,6 +69,11 @@ final class MysqlDatabaseDriver implements DatabaseDriver
         $this->pdo->rollback();
     }
     
+    public function fetchOne(): ?stdClass
+    {
+        // dd($this->statement);
+        return $this->statement->fetch() ?: null;
+    }
 
     public function getIterator(): PDORepositoryIterator
     {

@@ -11,10 +11,12 @@ interface DatabaseDriver
     public function execute(): bool;
     // public function executeSql(string $sql, array $values = []): DatabaseDriver;
     public function lastInsertedId(): int;
-    // public function fetchOne(): ?array;
+    public function fetchOne(): ?\stdClass;
     public function getIterator(): RepositoryIterator;
     // public function fetchAll(): array;
     public function beginTransaction(): bool;
     public function commit(): bool;
     public function rollback(): void;
+
+    public function bindValue(QueryBinder $queryBinder): self;
 }

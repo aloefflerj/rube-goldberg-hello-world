@@ -6,7 +6,7 @@ namespace Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCa
 
 use Aloefflerj\UniverseOriginApi\Shared\Component\Boundaries\InputBoundary;
 
-class FetchParticlesDTO implements InputBoundary
+class FindParticleDTO implements InputBoundary
 {
     public function __construct(
         public readonly string $id
