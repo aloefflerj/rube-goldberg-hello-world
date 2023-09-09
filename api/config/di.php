@@ -1,6 +1,7 @@
 <?php
 
 use Aloefflerj\UniverseOriginApi\Core\Component\Application\Contracts\ParticlesRepository\ParticlesRepository;
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\CreateParticleAction;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\FetchParticlesAction;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\FindParticleAction;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Repository\ParticlesMysqlRepository;
@@ -45,6 +46,16 @@ $container->set(FetchParticlesAction::class, function (Container $c) {
 
 $container->set(FindParticleAction::class, function (Container $c) {
     return new FindParticleAction(
+        new ParticlesUseCase(
+            $c->get(
+                ParticlesRepository::class
+            )
+        )
+    );
+});
+
+$container->set(CreateParticleAction::class, function (Container $c) {
+    return new CreateParticleAction(
         new ParticlesUseCase(
             $c->get(
                 ParticlesRepository::class

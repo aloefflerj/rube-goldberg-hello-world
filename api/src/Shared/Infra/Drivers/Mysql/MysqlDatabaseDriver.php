@@ -71,7 +71,6 @@ final class MysqlDatabaseDriver implements DatabaseDriver
     
     public function fetchOne(): ?stdClass
     {
-        // dd($this->statement);
         return $this->statement->fetch() ?: null;
     }
 

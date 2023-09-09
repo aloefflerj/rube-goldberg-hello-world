@@ -10,4 +10,5 @@ interface ParticlesRepository
     public function __construct(DatabaseDriver $db);
     public function fetchAll(string $orderBy): RepositoryIterator;
     public function findById(string $id): ?\stdClass;
+    public function createOne(string $id, string $charge): \stdClass|false;
 }

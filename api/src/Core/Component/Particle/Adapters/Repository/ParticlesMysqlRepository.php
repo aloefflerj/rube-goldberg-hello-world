@@ -46,8 +46,35 @@ class ParticlesMysqlRepository implements ParticlesRepository
             (new MysqlQueryBinder(':id'))
                 ->bindString($id)
         );
+
         $this->db->execute();
 
         return $this->db->fetchOne();
+    }
+
+    public function createOne(
+        string $id,
+        string $charge
+    ): \stdClass|false {
+        $this->db->prepare(
+            new Query(<<<SQL
+                INSERT INTO particles (id, charge)
+                VALUES (:id, :charge)
+            SQL)
+        );
+
+        $this->db->bindValue(
+            (new MysqlQueryBinder(':charge'))
+                ->bindString($charge)
+        );
+        $this->db->bindValue(
+            (new MysqlQueryBinder(':id'))
+                ->bindString($id)
+        );
+
+        if (!$this->db->execute()) return false;
+        if (!$found = $this->findById($id)) return false;
+
+        return $found;
     }
 }
