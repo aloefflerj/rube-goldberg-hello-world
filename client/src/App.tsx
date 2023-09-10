@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-const wsUrl = 'ws://localhost:3000/cleanArch';
+const wsUrl = 'ws://localhost:16000/cleanArch';
   interface Message{
     messageType: string;
     className: string;

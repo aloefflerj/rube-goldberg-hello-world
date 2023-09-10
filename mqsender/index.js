@@ -60,7 +60,7 @@ class MQSender {
           this.mqChannelConsume();
         });
       });
-    }, 1000);
+    }, 5000);
   }
 
   mqChannelAssert() {
