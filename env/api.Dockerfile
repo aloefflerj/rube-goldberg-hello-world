@@ -10,9 +10,14 @@ RUN apt-get install -y \
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions mysqli pdo pdo_mysql ds
+    install-php-extensions mysqli pdo pdo_mysql ds bcmath amqp sockets
 
 RUN a2enmod rewrite && service apache2 restart
+
+# COPY ./env/90-xdebug.ini "${PHP_INI_DIR}/conf.d"
+# RUN pecl install xdebug
+# RUN docker-php-ext-enable xdebug
+
 
 COPY ./api .
 COPY --from=composer:2.3.7 /usr/bin/composer /usr/bin/composer

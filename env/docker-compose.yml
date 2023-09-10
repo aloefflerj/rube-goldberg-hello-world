@@ -19,6 +19,7 @@ services:
       - mysql
     networks:
       - goldberg_network
+      - rabbitmq
 
   client:
     container_name: goldberg_client
@@ -28,8 +29,6 @@ services:
     restart: unless-stopped
     ports:
       - 12000:5173
-    env_file:
-      - .env
     volumes:
       - ../client:/app
       - /app/node_modules
@@ -55,9 +54,44 @@ services:
     networks:
       - goldberg_network
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: goldberg_rabbitmq
+    ports:
+        - 14000:5672
+        - 15000:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq
+    extra_hosts:
+      - "host.docker.internal:192.168.1.113"
+
+  mqsender:
+    container_name: goldberg_mqsender
+    build:
+      context: ..
+      dockerfile: ./env/mqsender.Dockerfile
+    ports:
+      - 16000:3000
+    expose:
+      - 3000
+    volumes:
+      - ../mqsender:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - rabbitmq
+    networks:
+      - rabbitmq
+      - goldberg_network
+    command: npm run dev
+
 networks:
   goldberg_network:
-      driver: bridge
+    driver: bridge
+  rabbitmq:
+    driver: bridge
 volumes:
   node_modules:
   my-db:
