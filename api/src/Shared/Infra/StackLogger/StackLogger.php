@@ -38,5 +38,6 @@ class StackLogger
         );
 
         $this->channel->basic_publish($msg, '', 'cleanArch');
+        sleep(1);
     }
 }

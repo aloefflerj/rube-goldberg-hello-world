@@ -1,18 +1,14 @@
-FROM node:20.5-alpine
+FROM node:lts-alpine as runtime
+
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 WORKDIR /app
 
-RUN mkdir -p /opt/node_modules
+ENV PATH /app/node_modules/.bin:$PATH
 
+COPY ./client/package*.json /app
+
+RUN npm install
 COPY ./client /app
-COPY ./client/package*.json /app/
 
-ARG UID=1000
-ARG GID=1000
-
-RUN chown -Rh ${UID}:${GID} /app
-USER ${UID}:${GID}
-
-RUN npm install --include=dev
-
-EXPOSE 12000
+CMD ["npm", "run", "dev"]

@@ -4,8 +4,7 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 WORKDIR /usr/src/app
 
-COPY ./mqsender/package.json /usr/src/app/
-COPY ./mqsender/package-lock.json /usr/src/app/
+COPY ./mqsender/package*.json /usr/src/app/
 
 ARG UID=1000
 ARG GID=1000

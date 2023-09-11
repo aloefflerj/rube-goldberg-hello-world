@@ -28,13 +28,13 @@ services:
       dockerfile: ./env/client.Dockerfile
     restart: unless-stopped
     ports:
-      - 12000:5173
+      - 12000:4321
     volumes:
       - ../client:/app
-      - /app/node_modules
+      - client_node_modules:/app/node_modules
     networks:
       - goldberg_network
-    command: npm run dev
+    command: sh -c "npm run dev"
 
   mysql:
     image: mysql:latest
@@ -79,7 +79,7 @@ services:
       - 3000
     volumes:
       - ../mqsender:/usr/src/app
-      - /usr/src/app/node_modules
+      - mqsender_node_modules:/usr/src/app/node_modules
     depends_on:
       - rabbitmq
     networks:
@@ -93,5 +93,6 @@ networks:
   rabbitmq:
     driver: bridge
 volumes:
-  node_modules:
+  client_node_modules:
+  mqsender_node_modules:
   my-db:

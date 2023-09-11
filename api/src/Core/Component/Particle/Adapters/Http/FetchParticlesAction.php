@@ -34,6 +34,14 @@ final class FetchParticlesAction extends ApiAction
         );
         $input = new FetchParticlesDTO('id');
         $output = $this->useCase->fetchAll($input);
+        $stackLogger->send(
+            new StackLoggerSendMessageDAO(
+                'StackLoggger',
+                (new \ReflectionClass($this))->getShortName(),
+                'dispatch',
+                'Controller'
+            )
+        );
 
         $res->getBody()->write(
             json_encode($output)
