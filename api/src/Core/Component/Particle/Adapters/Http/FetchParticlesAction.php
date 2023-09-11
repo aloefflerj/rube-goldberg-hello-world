@@ -8,7 +8,6 @@ use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\Bou
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\FetchParticlesUseCase;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Http\ApiAction;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
-use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLoggerSendMessageDAO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -23,25 +22,11 @@ final class FetchParticlesAction extends ApiAction
         ResponseInterface $res,
         array $args
     ): ResponseInterface {
-        $stackLogger = new StackLogger();
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                (new \ReflectionClass($this))->getShortName(),
-                'dispatch',
-                'Controller'
-            )
-        );
+
+        StackLogger::sendStatically();
         $input = new FetchParticlesDTO('id');
         $output = $this->useCase->fetchAll($input);
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                (new \ReflectionClass($this))->getShortName(),
-                'dispatch',
-                'Controller'
-            )
-        );
+        StackLogger::sendStatically();
 
         $res->getBody()->write(
             json_encode($output)

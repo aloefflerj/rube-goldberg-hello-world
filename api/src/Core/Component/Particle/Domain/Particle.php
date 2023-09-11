@@ -7,7 +7,6 @@ use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Entity\Contra
 use Aloefflerj\UniverseOriginApi\Shared\Component\Particle\Domain\Charge;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Particle\Domain\ParticleId;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
-use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLoggerSendMessageDAO;
 
 class Particle implements \JsonSerializable, ArrayParseable, FetchHydration
 {
@@ -47,15 +46,7 @@ class Particle implements \JsonSerializable, ArrayParseable, FetchHydration
 
     public static function hydrateByFetch(\stdClass $fetch): self
     {
-        $stackLogger = new StackLogger();
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                end(explode('\\', self::class)),
-                'hydrateByFetch',
-                'Domain'
-            )
-        );
+        StackLogger::sendStatically();
         return new self(
             new ParticleId($fetch->id),
             Charge::tryFrom($fetch->charge)

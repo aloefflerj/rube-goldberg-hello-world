@@ -20,46 +20,18 @@ final class FetchParticlesUseCase
 
     public function fetchAll(FetchParticlesDTO $dto): FetchedParticlesDTO
     {
-        $stackLogger = new StackLogger();
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                (new \ReflectionClass($this))->getShortName(),
-                'fetchAll',
-                'Use Case'
-            )
-        );
+        StackLogger::sendStatically();
         $particles = new Particles();
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                (new \ReflectionClass($this))->getShortName(),
-                'fetchAll',
-                'Use Case'
-            )
-        );
+        StackLogger::sendStatically();
 
         $particlesIterator = $this->repository->fetchAll($dto->orderBy);
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                (new \ReflectionClass($this))->getShortName(),
-                'fetchAll',
-                'Use Case'
-            )
-        );
+        StackLogger::sendStatically();
+
         foreach ($particlesIterator as $particleFetch) {
             $particle = Particle::hydrateByFetch($particleFetch);
             $particles->add($particle);
         }
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                (new \ReflectionClass($this))->getShortName(),
-                'fetchAll',
-                'Use Case'
-            )
-        );
+        StackLogger::sendStatically();
 
         return new FetchedParticlesDTO($particles->toArray());
     }

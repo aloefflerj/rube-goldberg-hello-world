@@ -9,7 +9,6 @@ use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Iterators\Con
 use Aloefflerj\UniverseOriginApi\Shared\Infra\Drivers\Mysql\MysqlDatabaseDriver;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\Drivers\Mysql\MysqlQueryBinder;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
-use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLoggerSendMessageDAO;
 use stdClass;
 
 class ParticlesMysqlRepository implements ParticlesRepository
@@ -23,15 +22,7 @@ class ParticlesMysqlRepository implements ParticlesRepository
 
     public function fetchAll(string $orderBy): RepositoryIterator
     {
-        $stackLogger = new StackLogger();
-        $stackLogger->send(
-            new StackLoggerSendMessageDAO(
-                'StackLoggger',
-                (new \ReflectionClass($this))->getShortName(),
-                'fetchAll',
-                'Mysql Repository'
-            )
-        );
+        StackLogger::sendStatically();
         $this->db->prepare(
             new Query(<<<SQL
                 SELECT * FROM particles
