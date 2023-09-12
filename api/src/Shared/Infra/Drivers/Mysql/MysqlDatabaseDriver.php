@@ -6,6 +6,7 @@ use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contra
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contracts\QueryBinder;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contracts\QueryStatement;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Iterators\PDORepositoryIterator;
+use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 use stdClass;
 
 final class MysqlDatabaseDriver implements DatabaseDriver
@@ -15,6 +16,7 @@ final class MysqlDatabaseDriver implements DatabaseDriver
     public function __construct(
         private \PDO $pdo
     ) {
+        StackLogger::sendStatically();
     }
     
     public function pdo(): \PDO

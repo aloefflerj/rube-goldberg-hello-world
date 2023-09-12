@@ -18,7 +18,6 @@ class StackLogger
     {
         $this->amqpsConnection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
         $this->channel = $this->amqpsConnection->channel();
-        // $this->channel->queue_delete('hello');
         $this->channel->queue_declare('cleanArch', false, false, false, false);
     }
 
@@ -50,13 +49,19 @@ class StackLogger
         $fullClassName = $previousFunctionExecution['class'];
         $className = end(explode('\\', $previousFunctionExecution['class']));
         $functionName = $previousFunctionExecution['function'];
+        $fileName = $previousFunctionExecution['file'];
         $abstractionLayer = match (1) {
-            preg_match("/\w+Action/", $className) => AbstractionLayer::CONTROLLER->value,
-            preg_match("/\w+MysqlRepository/", $className) => AbstractionLayer::MYSQL_REPOSITORY->value,
+            preg_match("/[\w\/]+Route.*/", $fileName) => AbstractionLayer::WEB_FRAMEWORK->value,
+            preg_match("/\w+Action/", $className) => AbstractionLayer::WEB_ADAPTER->value,
+            preg_match("/\w+MysqlRepository/", $className) => AbstractionLayer::MYSQL_ADAPTER->value,
+            preg_match("/\w+MysqlDatabaseDriver/", $className) => AbstractionLayer::MYSQL_DRIVER->value,
             preg_match("/\w+UseCase/", $className) => AbstractionLayer::USE_CASE->value,
             preg_match("/[\w\\\]+Domain\\\.+/", $fullClassName) => AbstractionLayer::DOMAIN->value,
             default => AbstractionLayer::UNKNOWN->value
         };
+
+        $className = $className === 'Closure' ? end(explode('/', $fileName)) : $className;
+        $className = str_replace('.php', '', $className);
 
         $stackLogger->send(
             new StackLoggerSendMessageDAO(
