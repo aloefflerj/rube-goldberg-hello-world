@@ -7,6 +7,7 @@ namespace Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\Boundaries\CreateParticleDTO;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\CreateParticleUseCase;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Http\ApiAction;
+use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -21,6 +22,7 @@ final class CreateParticleAction extends ApiAction
         ResponseInterface $res,
         array $args
     ): ResponseInterface {
+        StackLogger::sendStatically();
         $body = json_decode($req->getBody()->getContents());
         
         $this->requiredBodyField($body, 'charge');
@@ -30,6 +32,7 @@ final class CreateParticleAction extends ApiAction
                 $body->charge
              )
         );
+        StackLogger::sendStatically();
 
         $res->getBody()->write(
             json_encode($output)

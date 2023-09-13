@@ -20,5 +20,4 @@ $app->group('/particles', function (RouteCollectorProxyInterface $group) {
     $group->get('[/]', FetchParticlesAction::class);
     $group->get('/{id}[/]', FindParticleAction::class);
     $group->post('[/]', CreateParticleAction::class);
-    StackLogger::sendStatically();
 });

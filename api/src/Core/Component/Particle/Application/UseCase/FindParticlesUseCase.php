@@ -9,6 +9,7 @@ use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\Bou
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\Boundaries\FoundParticleDTO;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Domain\Particle;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Boundaries\NotFoundDTO;
+use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 
 final class FindParticlesUseCase
 {
@@ -18,13 +19,16 @@ final class FindParticlesUseCase
 
     public function find(FindParticleDTO $dto): FoundParticleDTO|NotFoundDTO
     {
+        StackLogger::sendStatically();
         $found = $this->repository->findById($dto->id);
-        if (!$found) return new NotFoundDTO();
+        StackLogger::sendStatically();
 
+        if (!$found) return new NotFoundDTO();
 
         $particle = Particle::hydrateByFetch(
             $found
         );
+        StackLogger::sendStatically();
 
         return new FoundParticleDTO(
             (string)$particle->getId(),

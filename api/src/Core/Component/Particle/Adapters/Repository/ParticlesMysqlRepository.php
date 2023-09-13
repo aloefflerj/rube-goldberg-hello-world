@@ -37,6 +37,7 @@ class ParticlesMysqlRepository implements ParticlesRepository
 
     public function findById(string $id): ?stdClass
     {
+        StackLogger::sendStatically();
         $this->db->prepare(
             new Query(<<<SQL
                 SELECT *
@@ -51,6 +52,7 @@ class ParticlesMysqlRepository implements ParticlesRepository
         );
 
         $this->db->execute();
+        StackLogger::sendStatically();
 
         return $this->db->fetchOne();
     }
@@ -59,6 +61,7 @@ class ParticlesMysqlRepository implements ParticlesRepository
         string $id,
         string $charge
     ): \stdClass|false {
+        StackLogger::sendStatically();
         $this->db->prepare(
             new Query(<<<SQL
                 INSERT INTO particles (id, charge)
@@ -76,6 +79,8 @@ class ParticlesMysqlRepository implements ParticlesRepository
         );
 
         if (!$this->db->execute()) return false;
+        StackLogger::sendStatically();
+
         if (!$found = $this->findById($id)) return false;
 
         return $found;

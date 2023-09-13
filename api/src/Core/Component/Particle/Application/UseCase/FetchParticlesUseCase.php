@@ -10,7 +10,6 @@ use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\Bou
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Domain\Particle;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Domain\Particles;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
-use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLoggerSendMessageDAO;
 
 final class FetchParticlesUseCase
 {

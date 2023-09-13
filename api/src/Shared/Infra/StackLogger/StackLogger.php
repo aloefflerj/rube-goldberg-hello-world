@@ -50,6 +50,7 @@ class StackLogger
         $className = end(explode('\\', $previousFunctionExecution['class']));
         $functionName = $previousFunctionExecution['function'];
         $fileName = $previousFunctionExecution['file'];
+
         $abstractionLayer = match (1) {
             preg_match("/[\w\/]+Route.*/", $fileName) => AbstractionLayer::FRAMEWORK_DRIVER->value,
             preg_match("/\w+Action/", $className) => AbstractionLayer::ADAPTER->value,
