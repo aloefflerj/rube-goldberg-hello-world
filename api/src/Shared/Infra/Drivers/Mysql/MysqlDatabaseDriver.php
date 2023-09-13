@@ -16,7 +16,6 @@ final class MysqlDatabaseDriver implements DatabaseDriver
     public function __construct(
         private \PDO $pdo
     ) {
-        StackLogger::sendStatically();
     }
     
     public function pdo(): \PDO
@@ -48,6 +47,7 @@ final class MysqlDatabaseDriver implements DatabaseDriver
 
     public function execute(): bool
     {
+        StackLogger::sendStatically();
         return $this->statement->execute();
     }
 

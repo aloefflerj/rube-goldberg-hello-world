@@ -6,14 +6,9 @@ namespace Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger;
 
 enum AbstractionLayer: string
 {
-    case WEB_FRAMEWORK = 'Web Framework';
-    case WEB_ADAPTER = 'Web Adapter';
-    
-    case MYSQL_DRIVER = 'MSQL Driver';
-    case MYSQL_ADAPTER = 'MSQL Adapter';
-
-    case USE_CASE = 'Use Case';
-    case DOMAIN = 'Domain';
-
-    case UNKNOWN = 'Unkown Layer';
+    case FRAMEWORK_DRIVER = 'frameworkDriver';
+    case ADAPTER = 'adapter';
+    case USE_CASE = 'useCase';
+    case DOMAIN = 'domain';
+    case UNKNOWN = 'unkown';
 }

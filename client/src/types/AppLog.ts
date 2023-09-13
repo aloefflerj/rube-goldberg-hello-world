@@ -3,4 +3,11 @@ export default interface AppLog {
     className: string;
     functionName: string;
     abstractionLayer: string;
+    abstractionType: 'webFramework' |
+        'webAdapter' |
+        'mysqlDriver' |
+        'mysqlAdapter' |
+        'useCase' |
+        'domain' |
+        'unkown';
 }

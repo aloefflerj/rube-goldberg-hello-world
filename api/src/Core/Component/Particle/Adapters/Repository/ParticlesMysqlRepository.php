@@ -30,6 +30,7 @@ class ParticlesMysqlRepository implements ParticlesRepository
         );
 
         $this->db->execute();
+        StackLogger::sendStatically();
 
         return $this->db->getIterator();
     }
