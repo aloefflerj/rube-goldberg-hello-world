@@ -65,4 +65,6 @@ VALUES (
         'positive'
     );
 
-GRANT ALL PRIVILEGES ON goldberg.* TO 'web'@'%' 
+CREATE USER 'web'@'localhost' IDENTIFIED BY 'web';
+
+GRANT ALL PRIVILEGES ON goldberg.* TO 'web'@'%';

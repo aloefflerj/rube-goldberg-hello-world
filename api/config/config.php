@@ -7,5 +7,5 @@ return [
         'user' => $_ENV['MYSQL_USER'],
         'passwd' => $_ENV['MYSQL_PASSWD']
     ],
-    'env' => $_ENV['ENVIROMENT']
+    'env' => $_ENV['ENV']
 ];

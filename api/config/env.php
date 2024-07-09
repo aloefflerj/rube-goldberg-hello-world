@@ -1,6 +1,5 @@
 <?php
 
 use Dotenv\Dotenv;
-
-$dotEnv = Dotenv::createImmutable(__DIR__);
-$dotEnv->load();
+$dotEnv = Dotenv::createImmutable(dirname(__DIR__, 1));
+$dotEnv->safeLoad();

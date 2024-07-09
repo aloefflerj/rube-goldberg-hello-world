@@ -6,8 +6,8 @@ services:
         context: ..
         dockerfile: ./env/api.Dockerfile
         args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
+          - UID=${UID:-1000}
+          - GID=${GID:-1000}
     restart: unless-stopped
     ports: 
       - 11000:80
