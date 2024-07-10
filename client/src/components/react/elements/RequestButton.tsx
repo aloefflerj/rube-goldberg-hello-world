@@ -1,4 +1,4 @@
-import { useParticles } from "../hooks/useParticles";
+import { useParticles } from "../../../hooks/useParticles";
 import { Button } from "./Button";
 
 export function RequestButton({ text }: { text: string }) {
