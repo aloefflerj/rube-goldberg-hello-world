@@ -1,0 +1,32 @@
+---
+const { title } = Astro.props;
+---
+
+<div class="astro-box">
+    <div class="header">
+        <h2>{title}</h2>
+    </div>
+    <slot name="body"/>
+</div>
+
+<style>
+    h2 {
+        padding: 0;
+        margin: 0;
+        color: #741d3e;
+    }
+    div.header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10%;
+        padding: 0;
+        margin: 0;
+        background-color: #a83762;
+    }
+    div.astro-box {
+        background-color: #bd517a;
+        width: 100%;
+        height: 100%;
+    }
+</style>
