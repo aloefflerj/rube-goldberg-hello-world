@@ -6,7 +6,7 @@ export default function ReactComponent(
             <div className='react-box' style={{
                 backgroundColor: '#61DAFB',
                 width: '100%',
-                height: '100%'
+                height: '100%',
             }}>
                 <div className='header' style={{
                     display: 'flex',
@@ -23,7 +23,18 @@ export default function ReactComponent(
                         color: '#2d6ba5',
                     }}>{title}</h2>
                 </div>
-                {children}
+                <div className="body" style={{
+                    width: '100%',
+                    height: '90%',
+                    display: 'grid',
+                    gap: '20px',
+                    gridTemplateColumns: '1fr 1fr 1fr',
+                    gridTemplateRows: '1fr 1fr 1fr',
+                    padding: '20px',
+                    boxSizing: 'border-box',
+                }}>
+                    {children}
+                </div>
             </div>
         </>
     );
