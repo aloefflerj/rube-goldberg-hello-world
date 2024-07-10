@@ -42,6 +42,10 @@ class StackLogger
 
     public static function sendStatically(): void
     {
+        if (!isset(getallheaders()['debug'])) {
+            return;
+        }
+
         $debug = debug_backtrace();
         $stackLogger = new self();
 
