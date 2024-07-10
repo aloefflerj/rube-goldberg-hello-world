@@ -9,5 +9,6 @@ export default interface AppLog {
         'mysqlAdapter' |
         'useCase' |
         'domain' |
-        'unkown';
+        'unkown' |
+        '';
 }
