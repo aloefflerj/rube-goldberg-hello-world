@@ -47,7 +47,8 @@ class StackLogger
 
         $previousFunctionExecution = $debug[1];
         $fullClassName = $previousFunctionExecution['class'];
-        $className = end(explode('\\', $previousFunctionExecution['class']));
+        $fullClassNameArray = explode('\\', $previousFunctionExecution['class']);
+        $className = end($fullClassNameArray);
         $functionName = $previousFunctionExecution['function'];
         $fileName = $previousFunctionExecution['file'];
 
@@ -71,7 +72,8 @@ class StackLogger
             default => AbstractionLayer::UNKNOWN->value
         };
 
-        $className = $className === 'Closure' ? end(explode('/', $fileName)) : $className;
+        $fileNameArray = explode('/', $fileName);
+        $className = $className === 'Closure' ? end($fileNameArray) : $className;
         $className = str_replace('.php', '', $className);
 
         $stackLogger->send(
