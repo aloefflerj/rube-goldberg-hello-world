@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ReactBox from '../components/react/ReactBox';
+import SvelteBox from '../components/svelte/SvelteBox.svelte';
 import VueBox from '../components/vue/VueBox.vue';
 import AppDetailsLog from '../components/vue/AppDetailsLog.vue';
 import { RequestButton } from '../components/react/elements/RequestButton';
@@ -14,6 +15,9 @@ import { RequestButton } from '../components/react/elements/RequestButton';
 		<VueBox client:only="vue" title="Vue">
 			<AppDetailsLog client:only="vue"/>
 		</VueBox>
+		<SvelteBox client:load title="Svelte">
+			<h1>...</h1>
+		</SvelteBox>
 	</main>
 </Layout>
 
