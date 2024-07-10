@@ -3,7 +3,7 @@ import { get, post } from "../ApiRequest";
 const routeBaseUrl = '/particles';
 
 export const useParticles = () => ({
-    fetchParticles: () => get(routeBaseUrl),
-    fetchParticle: (id: string) => get(`${routeBaseUrl}/${id}`),
-    createParticle: (body: any) => post(routeBaseUrl, body)
+    fetchParticles: (debug: boolean = false) => get(routeBaseUrl, debug),
+    fetchParticle: (id: string, debug: boolean = false) => get(`${routeBaseUrl}/${id}`, debug),
+    createParticle: (body: any, debug: boolean = false) => post(routeBaseUrl, body, debug)
 });
