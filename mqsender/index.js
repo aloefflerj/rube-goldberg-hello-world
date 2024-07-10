@@ -4,11 +4,11 @@ const Websocket = require("ws");
 const amqp = require("amqplib/callback_api");
 
 class MQSender {
-  constructor() {
-    this.queue = "cleanArch";
-    this.connectedWs = null;
+  constructor(queue, websocketServer) {
+    this.queue = queue;
+    this.connectedWebSockets = [];
     this.channel = null;
-    this.server = this.configWebsocketServer();
+    this.wsServer = websocketServer;
   }
 
   init() {
@@ -16,26 +16,16 @@ class MQSender {
     this.initMqConnection();
   }
 
-  configWebsocketServer() {
-    return new Websocket.Server(
-      {
-        port: 3000,
-      },
-      () => {
-        console.log("[*] Server started on port 3000");
-      }
-    );
-  }
-
   initWebsocketConnection() {
-    this.server.on("connection", (ws) => {
+    this.wsServer.on("connection", (ws, request) => {
       console.log(" ~ connected to ws");
+
       ws.on("message", (message) => {
         const data = JSON.parse(message);
         console.log(data);
       });
 
-      this.connectedWs = ws;
+      this.connectedWebSockets[request.url] = ws;
 
       ws.on("close", (code, reason) => {
         console.log(`Connection closed: ${code} ${reason}!`);
@@ -82,8 +72,9 @@ class MQSender {
       (queueMsg) => {
         if (queueMsg !== undefined && queueMsg !== null) {
           console.log(JSON.parse(queueMsg.content.toString()));
-          if (this.connectedWs !== null)
-            this.connectedWs.send(queueMsg.content.toString());
+          if (this.connectedWebSockets['/' + this.queue] !== null || this.connectedWebSockets['/' + this.queue] !== undefined) {
+            this.connectedWebSockets['/' + this.queue].send(queueMsg.content.toString());
+          }
         }
       },
       {
@@ -93,5 +84,15 @@ class MQSender {
   }
 }
 
-const mqSender = new MQSender();
-mqSender.init();
+const webSocketServer = new Websocket.Server({
+    port: 3000
+  }, () => {
+    console.log("[*] Server started on port 3000");
+  }
+);
+
+const mqCleanArchSender = new MQSender('cleanArch', webSocketServer);
+mqCleanArchSender.init();
+
+const mqDataBaseUpdateSender = new MQSender('dataBaseUpdate', webSocketServer);
+mqDataBaseUpdateSender.init();
