@@ -27,7 +27,7 @@ class StackLogger
         $this->amqpsConnection->close();
     }
 
-    public function send(StackLoggerSendMessageDAO $msg): void
+    public function send(StackLoggerSendMessageDTO $msg): void
     {
         $msg = new AMQPMessage(
             json_encode($msg),
@@ -81,7 +81,7 @@ class StackLogger
         $className = str_replace('.php', '', $className);
 
         $stackLogger->send(
-            new StackLoggerSendMessageDAO(
+            new StackLoggerSendMessageDTO(
                 'StackLoggger',
                 $className,
                 $functionName,
