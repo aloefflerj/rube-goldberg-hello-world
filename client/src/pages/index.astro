@@ -3,12 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import ReactBox from '../components/react/ReactBox';
 import VueBox from '../components/vue/VueBox.vue';
 import AppDetailsLog from '../components/vue/AppDetailsLog.vue';
+import { RequestButton } from '../components/react/elements/RequestButton';
 ---
 
 <Layout title="Hello World">
 	<main>
 		<ReactBox client:load title="React">
-			<h1>...</h1>
+			<RequestButton client:load text='Create Particle' />
 		</ReactBox>
 		<VueBox client:only="vue" title="Vue">
 			<AppDetailsLog client:only="vue"/>
