@@ -1,22 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ReactBox from '../components/react/ReactBox';
-import SvelteBox from '../components/svelte/SvelteBox.svelte';
-import VueBox from '../components/vue/VueBox.vue';
-import AppDetailsLog from '../components/vue/AppDetailsLog.vue';
-import { RequestButton } from '../components/react/elements/RequestButton';
+import Layout from "../layouts/Layout.astro";
+import ReactBox from "../components/react/ReactBox";
+import SvelteBox from "../components/svelte/SvelteBox.svelte";
+import ParticlesFetcher from "../components/svelte/ParticlesFetcher.svelte";
+import VueBox from "../components/vue/VueBox.vue";
+import AppDetailsLog from "../components/vue/AppDetailsLog.vue";
+import { RequestButton } from "../components/react/elements/RequestButton";
 ---
 
 <Layout title="Hello World">
 	<main>
 		<ReactBox client:load title="React">
-			<RequestButton client:load text='Create Particle' />
+			<RequestButton client:load text="Create Particle" />
 		</ReactBox>
 		<VueBox client:only="vue" title="Vue">
-			<AppDetailsLog client:only="vue"/>
+			<AppDetailsLog client:only="vue" />
 		</VueBox>
 		<SvelteBox client:load title="Svelte">
-			<h1>...</h1>
+			<ParticlesFetcher client:load />
 		</SvelteBox>
 	</main>
 </Layout>

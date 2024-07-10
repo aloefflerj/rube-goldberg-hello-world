@@ -9,7 +9,7 @@
     <slot />
 </div>
 
-<style scoped>
+<style>
     h2 {
         padding: 0;
         margin: 0;
