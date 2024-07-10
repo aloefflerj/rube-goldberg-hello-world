@@ -39,6 +39,7 @@ $customErrorHandler = function (
     $response = $app->getResponseFactory()->createResponse($statusCode);
 
     if ($container->get('development') && function_exists('dd')) {
+        error_log($th->getMessage() . "\n" . $th->getTraceAsString());
         dd($th);
     } else {
         $response->getBody()->write(
