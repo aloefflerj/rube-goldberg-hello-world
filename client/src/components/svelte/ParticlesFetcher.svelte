@@ -1,17 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { useParticles } from "../../hooks/useParticles.ts";
-
-    const { fetchParticles } = useParticles();
-
-    let particles: any[] = [];
+    export let particles: any[] = [];
 
     onMount(async () => {
-        const responseData = await fetchParticles().then(
-            (response) => response.data,
-        );
-        particles = responseData.particles;
-
         const wsUrl = "ws://localhost:16000/newEntity/svelte";
         const webSocket = new WebSocket(wsUrl);
 

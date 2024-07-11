@@ -7,6 +7,10 @@ import VueBox from "../components/vue/VueBox.vue";
 import AppDetailsLog from "../components/vue/AppDetailsLog.vue";
 import { RequestButton } from "../components/react/elements/RequestButton";
 import AstroBox from "../components/astro/AstroBox.astro";
+import { useParticles } from "../hooks/useParticles";
+
+const { fetchParticles } = useParticles(true);
+const particles = await fetchParticles().then(response => response.data.particles);
 ---
 
 <Layout title="Hello World">
@@ -18,9 +22,9 @@ import AstroBox from "../components/astro/AstroBox.astro";
 			<AppDetailsLog client:only="vue" />
 		</VueBox>
 		<SvelteBox client:load title="Svelte">
-			<ParticlesFetcher client:load />
+			<ParticlesFetcher client:load particles={particles}/>
 		</SvelteBox>
-		<AstroBox title="Astro" client:load>
+		<AstroBox title="Astro">
 			<div id="socket-response" slot="body"></div>
 		</AstroBox>
 	</main>
