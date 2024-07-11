@@ -24,6 +24,6 @@ cleanArchMQSender.consumeAndSend();
 
 
 /** ===== DATABASE UPDATE QUEUE ===== */
-const databaseUpdateMQSender = new MQSender('dataBaseUpdate', webSocketServerHandler);
-databaseUpdateMQSender.consumeAndSend();
+const newEntityMQSender = new MQSender('newEntity', webSocketServerHandler);
+newEntityMQSender.consumeAndSend();
 /** ================================= */

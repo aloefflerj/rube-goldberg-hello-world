@@ -7,5 +7,11 @@ return [
         'user' => $_ENV['MYSQL_USER'],
         'passwd' => $_ENV['MYSQL_PASSWD']
     ],
-    'env' => $_ENV['ENV']
+    'env' => $_ENV['ENV'],
+    'rabbitmq' => [
+        'host' => $_ENV['MQ_HOST'],
+        'port' => $_ENV['MQ_PORT'],
+        'user' => $_ENV['MQ_USER'],
+        'password' => $_ENV['MQ_PASSWORD']
+    ],
 ];

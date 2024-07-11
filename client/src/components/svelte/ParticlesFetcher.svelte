@@ -12,7 +12,7 @@
         );
         particles = responseData.particles;
 
-        const wsUrl = "ws://localhost:16000/dataBaseUpdate";
+        const wsUrl = "ws://localhost:16000/newEntity";
         const webSocket = new WebSocket(wsUrl);
 
         webSocket.onmessage = (e) => {

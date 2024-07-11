@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase;
 
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\Contracts\ParticlesMessaging;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\Contracts\ParticlesRepository;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\Boundaries\CreateParticleDTO;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\UseCase\Boundaries\FoundParticleDTO;
@@ -15,8 +16,10 @@ use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 
 final class CreateParticleUseCase
 {
-    public function __construct(private ParticlesRepository $repository)
-    {
+    public function __construct(
+        private ParticlesRepository $repository,
+        private ParticlesMessaging $messaging
+    ) {
     }
 
     public function createOne(CreateParticleDTO $dto): FoundParticleDTO|NotCreatedDTO
@@ -40,6 +43,8 @@ final class CreateParticleUseCase
             $found
         );
         StackLogger::sendStatically();
+
+        $this->messaging->send($particle->jsonSerialize());
 
         return new FoundParticleDTO(
             (string)$particle->getId(),

@@ -31,7 +31,7 @@ class Particle implements \JsonSerializable, ArrayParseable, FetchHydration
         $json = new \stdClass();
 
         $json->id = (string)$this->id;
-        $json->charge = (string)$this->charge->id;
+        $json->charge = (string)$this->charge->value;
 
         return $json;
     }
