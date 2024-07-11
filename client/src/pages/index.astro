@@ -20,8 +20,8 @@ import AstroBox from "../components/astro/AstroBox.astro";
 		<SvelteBox client:load title="Svelte">
 			<ParticlesFetcher client:load />
 		</SvelteBox>
-		<AstroBox title="Astro">
-			<h1 slot="body">...</h1>
+		<AstroBox title="Astro" client:load>
+			<div id="socket-response" slot="body"></div>
 		</AstroBox>
 	</main>
 </Layout>
@@ -35,3 +35,20 @@ import AstroBox from "../components/astro/AstroBox.astro";
 		grid-template-rows: 50% 50%;
 	}
 </style>
+
+<script>
+	const wsUrl = "ws://localhost:16000/newEntity/astro";
+	const webSocket = new WebSocket(wsUrl);
+
+	webSocket.onmessage = (e) => {
+		const response = JSON.parse(e.data.toString());
+		const socketResponseElement =
+			document.getElementById("socket-response");
+
+		if (socketResponseElement === null) {
+			return;
+		}
+
+		socketResponseElement.innerHTML = "<h1><pre>" + response + "</pre><h1>";
+	};
+</script>

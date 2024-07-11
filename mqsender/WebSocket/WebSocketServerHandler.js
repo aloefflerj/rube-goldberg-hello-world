@@ -10,10 +10,15 @@ class WebSocketServerHandler {
     listen() {
         this.#websocketServer.on('connection', (webSocket, request) => {
             const { url } = request;
+            const queueName = '/' + url.split('/')[1];
             console.log(` ~ connected to websocket on the url '${url}'`)
 
             this.#loadOnMessageBehaviour(webSocket);
-            this.#connectedWebSockets[url] = webSocket;
+            if (this.#connectedWebSockets[queueName] === undefined) {
+                this.#connectedWebSockets[queueName] = [];
+            }
+            this.#connectedWebSockets[queueName].push(webSocket);
+
             this.#loadOnCloseBehaviour(webSocket);
         });
     }

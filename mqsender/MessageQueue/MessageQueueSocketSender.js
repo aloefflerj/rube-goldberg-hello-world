@@ -34,7 +34,9 @@ class MessageQueueSocketSender {
                     return;
                 }
 
-                connectedWebSocketByUrl.send(queueMessage.content.toString());
+                connectedWebSocketByUrl.forEach((webSocket) => {
+                    webSocket.send(queueMessage.content.toString());
+                });
             }, {
             noAck: true,
         }
