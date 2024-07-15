@@ -5,9 +5,9 @@ import SvelteBox from "../components/svelte/SvelteBox.svelte";
 import ParticlesFetcher from "../components/svelte/ParticlesFetcher.svelte";
 import VueBox from "../components/vue/VueBox.vue";
 import AppDetailsLog from "../components/vue/AppDetailsLog.vue";
-import { RequestButton } from "../components/react/elements/RequestButton";
 import AstroBox from "../components/astro/AstroBox.astro";
 import { useParticles } from "../hooks/useParticles";
+import ButtonsController from "../components/react/ButtonsController";
 
 const { fetchParticles } = useParticles(true);
 const particles = await fetchParticles().then(response => response.data.particles);
@@ -16,7 +16,7 @@ const particles = await fetchParticles().then(response => response.data.particle
 <Layout title="Hello World">
 	<main>
 		<ReactBox client:load title="React">
-			<RequestButton client:load text="Create Particle" />
+			<ButtonsController client:load particles={particles}/>
 		</ReactBox>
 		<VueBox client:only="vue" title="Vue">
 			<AppDetailsLog client:only="vue" />
