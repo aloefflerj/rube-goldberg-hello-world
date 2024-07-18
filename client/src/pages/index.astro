@@ -9,11 +9,16 @@ import AstroBox from "../components/astro/AstroBox.astro";
 import { useParticles } from "../hooks/useParticles";
 import ButtonsController from "../components/react/ButtonsController";
 import BoxBody from "../components/astro/BoxBody.astro";
+import { useSteps } from "../hooks/useSteps";
+import StepController from "../components/svelte/StepController.svelte";
 
 const { fetchParticles } = useParticles(true);
 const particles = await fetchParticles().then(
 	(response) => response.data.particles,
 );
+
+const { fetchSteps } = useSteps(true);
+const steps = await fetchSteps().then((response) => response.data.steps);
 ---
 
 <Layout title="Hello World">
@@ -25,7 +30,8 @@ const particles = await fetchParticles().then(
 			<AppDetailsLog client:only="vue" />
 		</VueBox>
 		<SvelteBox client:load title="Svelte">
-			<ParticlesFetcher client:load particles={particles} />
+			<!-- <ParticlesFetcher client:load particles={particles} /> -->
+			<StepController client:load steps={steps} />
 		</SvelteBox>
 		<AstroBox title="Astro">
 			<BoxBody slot="body" />
