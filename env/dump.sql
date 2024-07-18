@@ -109,6 +109,7 @@ VALUES (
 CREATE TABLE IF NOT EXISTS `speeches` (
     `id` CHAR(36) NOT NULL,
     `step_id` CHAR(36) NOT NULL,
+    `order` INT(255) NOT NULL,
     `content` VARCHAR(255) NOT NULL,
     `speed` ENUM(
         'pause',
@@ -126,6 +127,7 @@ INSERT INTO
 VALUES (
         '492e39aa-a363-4555-a980-48f395d509b6',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        1,
         'Hi! Welcome to the',
         'normal',
         0
@@ -133,6 +135,7 @@ VALUES (
     (
         '3bba95ec-c7f7-4493-97a8-31a76376aa65',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        2,
         'Rube Goldberg Hello World.',
         'slow',
         1
@@ -140,6 +143,7 @@ VALUES (
     (
         '646489f9-2a0a-4879-923e-5343b62236be',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        3,
         'The idea of this project is to create a',
         'normal',
         0
@@ -147,6 +151,7 @@ VALUES (
     (
         '2375a2af-2ce3-40a1-ad47-3ec87d3aae3e',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        4,
         '\'Hello World\'',
         'normal',
         1
@@ -154,6 +159,7 @@ VALUES (
     (
         'db95064f-e22a-432a-848a-8b7eb7e58305',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        5,
         'in the most complicated way.',
         'normal',
         0
