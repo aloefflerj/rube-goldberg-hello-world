@@ -103,6 +103,12 @@ VALUES (
         'prologue',
         1,
         'ongoing'
+    ),
+    (
+        '2ca9be39-cf6c-429e-afb0-d754fa0fb8c6',
+        'big-bang',
+        2,
+        'waiting'
     );
 
 -- ------------------------
@@ -152,7 +158,7 @@ VALUES (
         '2375a2af-2ce3-40a1-ad47-3ec87d3aae3e',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
         4,
-        '\'Hello World\'',
+        '"Hello World"',
         'normal',
         1
     ),
@@ -163,4 +169,20 @@ VALUES (
         'in the most complicated way.',
         'normal',
         0
+    ),
+    (
+        '98b6776b-4f29-4339-b016-7bd320605333',
+        '2ca9be39-cf6c-429e-afb0-d754fa0fb8c6',
+        1,
+        'As the famous Carl Sagan once said,',
+        'normal',
+        0
+    ),
+    (
+        '7f1b6831-f235-4a4a-8ea8-3d05f1538caf',
+        '2ca9be39-cf6c-429e-afb0-d754fa0fb8c6',
+        2,
+        '"If you wish to make an apple pie from scratch, you must first invent the universe."',
+        'normal',
+        1
     );
