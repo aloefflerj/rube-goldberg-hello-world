@@ -9,7 +9,7 @@ require_once __DIR__ . '/../config/env.php';
 
 use Slim\Factory\AppFactory;
 
-require_once __DIR__ . '/../config/di.php';
+require_once __DIR__ . '/../config/di/main.php';
 
 $app = AppFactory::createFromContainer($container);
 

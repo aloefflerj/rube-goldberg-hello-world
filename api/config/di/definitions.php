@@ -1,0 +1,18 @@
+<?php
+
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Messaging\ParticlesAmqpMessaging;
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Repository\ParticlesMysqlRepository;
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\Contracts\ParticlesMessaging;
+use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\Contracts\ParticlesRepository;
+use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Messaging\Contracts\MessagingDriver;
+use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Persistence\Db\Contracts\DatabaseDriver;
+use DI\ContainerBuilder;
+
+$builder = new ContainerBuilder();
+
+$builder->addDefinitions([
+    DatabaseDriver::class => DI\get('database'),
+    MessagingDriver::class => DI\get('messaging'),
+    ParticlesRepository::class => DI\autowire(ParticlesMysqlRepository::class),
+    ParticlesMessaging::class => DI\autowire(ParticlesAmqpMessaging::class),
+]);
