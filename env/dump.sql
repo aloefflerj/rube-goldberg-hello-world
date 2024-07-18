@@ -106,7 +106,7 @@ VALUES (
     );
 
 -- ------------------------
-CREATE TABLE IF NOT EXISTS `step_speeches` (
+CREATE TABLE IF NOT EXISTS `speeches` (
     `id` CHAR(36) NOT NULL,
     `step_id` CHAR(36) NOT NULL,
     `content` VARCHAR(255) NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `step_speeches` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 INSERT INTO
-    `step_speeches`
+    `speeches`
 VALUES (
         '492e39aa-a363-4555-a980-48f395d509b6',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
