@@ -64,7 +64,7 @@ const { currentStep } = Astro.props;
             {
                 content: "What's up?",
                 speed: speeds.normal,
-                classes: ["highlight"],
+                highlight: true,
             },
             { content: "I'm great!", speed: speeds.fast },
         ],
@@ -92,7 +92,7 @@ const { currentStep } = Astro.props;
                 span: span,
                 isSpace: character === " ",
                 delayAfter: line.speed,
-                classes: line.classes || [],
+                highlight: line.highlight || false,
             });
         });
     });
@@ -100,9 +100,9 @@ const { currentStep } = Astro.props;
     function revealOneCharacter(list) {
         let next = list.splice(0, 1)[0];
         next.span.classList.add("revealed");
-        next.classes.forEach((c) => {
-            next.span.classList.add(c);
-        });
+        if (next.highlight) {
+            next.span.classList.add("highlight");
+        }
 
         const delay = next.isSpace ? 0 : next.delayAfter;
         if (list.length > 0) {
