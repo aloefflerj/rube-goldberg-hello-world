@@ -19,9 +19,7 @@ final class FetchParticlesUseCase
 
     public function fetchAll(FetchParticlesDTO $dto): FetchedParticlesDTO
     {
-        StackLogger::sendStatically();
         $particles = new Particles();
-        StackLogger::sendStatically();
 
         $particlesIterator = $this->repository->fetchAll($dto->orderBy);
         StackLogger::sendStatically();

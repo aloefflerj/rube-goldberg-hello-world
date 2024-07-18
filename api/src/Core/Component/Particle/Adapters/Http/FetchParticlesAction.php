@@ -22,7 +22,6 @@ final class FetchParticlesAction extends ApiAction
         ResponseInterface $res,
         array $args
     ): ResponseInterface {
-
         StackLogger::sendStatically();
         $input = new FetchParticlesDTO('id');
         $output = $this->useCase->fetchAll($input);
