@@ -21,6 +21,7 @@ final class FetchStepsUseCase
     {
         $steps = new Steps();
 
+        StackLogger::sendStatically();
         $stepsIterator = $this->repository->fetchAll($dto->orderBy);
         StackLogger::sendStatically();
 
