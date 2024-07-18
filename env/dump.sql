@@ -87,14 +87,74 @@ CREATE TABLE IF NOT EXISTS `steps` (
     `id` CHAR(36) NOT NULL,
     `title` VARCHAR(255) NOT NULL,
     `order` INT(255) NOT NULL,
-    `status` ENUM('waiting', 'ongoing', 'finished') DEFAULT 'waiting',
+    `status` ENUM(
+        'waiting',
+        'ongoing',
+        'finished'
+    ) DEFAULT 'waiting',
     PRIMARY KEY (`id`),
     CONSTRAINT `unique_order` UNIQUE (`order`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-INSERT INTO `steps` VALUES (
-    '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
-    'prologue',
-    1,
-    'ongoing'
-);
+INSERT INTO
+    `steps`
+VALUES (
+        '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        'prologue',
+        1,
+        'ongoing'
+    );
+
+-- ------------------------
+CREATE TABLE IF NOT EXISTS `step_speeches` (
+    `id` CHAR(36) NOT NULL,
+    `step_id` CHAR(36) NOT NULL,
+    `content` VARCHAR(255) NOT NULL,
+    `speed` ENUM(
+        'pause',
+        'slow',
+        'normal',
+        'fast'
+    ) DEFAULT 'normal',
+    `highlight` TINYINT(1) DEFAULT 0,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`step_id`) REFERENCES `steps` (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+INSERT INTO
+    `step_speeches`
+VALUES (
+        '492e39aa-a363-4555-a980-48f395d509b6',
+        '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        'Hi! Welcome to the',
+        'normal',
+        0
+    ),
+    (
+        '3bba95ec-c7f7-4493-97a8-31a76376aa65',
+        '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        'Rube Goldberg Hello World.',
+        'slow',
+        1
+    ),
+    (
+        '646489f9-2a0a-4879-923e-5343b62236be',
+        '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        'The idea of this project is to create a',
+        'normal',
+        0
+    ),
+    (
+        '2375a2af-2ce3-40a1-ad47-3ec87d3aae3e',
+        '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        '\'Hello World\'',
+        'normal',
+        1
+    ),
+    (
+        'db95064f-e22a-432a-848a-8b7eb7e58305',
+        '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        'in the most complicated way.',
+        'normal',
+        0
+    );
