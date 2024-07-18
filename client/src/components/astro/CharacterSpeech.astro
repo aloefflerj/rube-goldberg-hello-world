@@ -1,11 +1,20 @@
 ---
 import { useSteps } from "../../hooks/useSteps";
+import type Step from "../../types/Step";
 import SpeechTextBox from "./elements/SpeechTextBox.astro";
+
+interface Props {
+    currentStep: Step | null;
+}
 
 const { currentStep } = Astro.props;
 
 const { fetchSpeechesByStep } = useSteps(true);
-const spechesByStep = await fetchSpeechesByStep(currentStep.id).then((response) => response.data.speeches)
+
+const stepId = currentStep ? currentStep.id : '';
+const spechesByStep = await fetchSpeechesByStep(stepId).then(
+    (response) => response.data.speeches,
+);
 ---
 
 <div class="speech-box">

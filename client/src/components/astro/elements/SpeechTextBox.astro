@@ -1,4 +1,9 @@
 ---
+import { speedValues } from "../../../helpers/Speed";
+import type Speech from "../../../types/Speech";
+interface Props {
+    spechesByStep: Speech[];
+}
 const { spechesByStep } = Astro.props;
 ---
 
@@ -50,14 +55,7 @@ const { spechesByStep } = Astro.props;
     }
 </style>
 
-<script lang="ts" define:vars={{ spechesByStep }}>
-    const speeds = {
-        pause: 500,
-        slow: 100,
-        normal: 40,
-        fast: 20,
-    };
-
+<script lang="ts" define:vars={{ spechesByStep, speedValues }}>
     const container = document.querySelector(".speech-text");
 
     let characters = [];
@@ -78,7 +76,7 @@ const { spechesByStep } = Astro.props;
             characters.push({
                 span: span,
                 isSpace: character === " ",
-                delayAfter: speeds[line.speed],
+                delayAfter: speedValues[line.speed],
                 highlight: line.highlight || false,
             });
         });

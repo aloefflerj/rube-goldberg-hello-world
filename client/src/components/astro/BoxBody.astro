@@ -2,13 +2,18 @@
 import CharacterBox from "./CharacterSpeaking.astro";
 import ElementsBox from "./CharacterExplanations.astro";
 import SpeechBox from "./CharacterSpeech.astro";
+import type Step from "../../types/Step";
+
+interface Props {
+    steps: Step[];
+}
 
 const { steps } = Astro.props;
-const currentStep = steps.find((step: any) => step.status === "ongoing");
+const currentStep = steps.find((step) => step.status === "ongoing");
 ---
 
 <div class="box-body">
-    <SpeechBox currentStep={currentStep} />
+    <SpeechBox currentStep={currentStep ?? null} />
     <ElementsBox />
     <CharacterBox />
 </div>
