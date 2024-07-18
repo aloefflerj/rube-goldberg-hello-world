@@ -1,9 +1,11 @@
 ---
 import SpeechTextBox from "./elements/SpeechTextBox.astro";
+
+const { currentStep } = Astro.props;
 ---
 
 <div class="speech-box">
-    <SpeechTextBox />
+    <SpeechTextBox currentStep={currentStep} />
 </div>
 
 <style>

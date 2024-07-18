@@ -1,5 +1,5 @@
 ---
-
+const { currentStep } = Astro.props;
 ---
 
 <div class="speech-text">
@@ -50,7 +50,7 @@
     }
 </style>
 
-<script lang="ts" defer>
+<script lang="ts" define:vars={{ currentStep }}>
     const speeds = {
         pause: 500,
         slow: 120,
@@ -58,15 +58,18 @@
         fast: 40,
     };
 
-    const textLines = [
-        { content: "Hey.", speed: speeds.normal },
-        {
-            content: "What's up?",
-            speed: speeds.normal,
-            classes: ["highlight"],
-        },
-        { content: "I'm great!", speed: speeds.fast },
-    ];
+    const dialoguesByStep = {
+        prologue: [
+            { content: "Hey.", speed: speeds.normal },
+            {
+                content: "What's up?",
+                speed: speeds.normal,
+                classes: ["highlight"],
+            },
+            { content: "I'm great!", speed: speeds.fast },
+        ],
+    };
+    const textLines = dialoguesByStep[currentStep.title];
 
     const container = document.querySelector(".speech-text");
 

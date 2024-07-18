@@ -34,7 +34,7 @@ const steps = await fetchSteps().then((response) => response.data.steps);
 			<StepController client:load steps={steps} />
 		</SvelteBox>
 		<AstroBox title="Astro">
-			<BoxBody slot="body" />
+			<BoxBody slot="body" steps={steps} />
 		</AstroBox>
 	</main>
 </Layout>
