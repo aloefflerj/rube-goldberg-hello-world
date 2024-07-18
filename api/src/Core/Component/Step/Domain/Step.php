@@ -4,6 +4,7 @@ namespace Aloefflerj\UniverseOriginApi\Core\Component\Step\Domain;
 
 use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Entity\Contracts\ArrayParseable;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Entity\Contracts\FetchHydration;
+use Aloefflerj\UniverseOriginApi\Shared\Component\Step\Domain\Status;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Step\Domain\StepId;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 
@@ -12,7 +13,8 @@ class Step implements \JsonSerializable, ArrayParseable, FetchHydration
     public function __construct(
         private StepId $id,
         private string $title,
-        private int $order
+        private int $order,
+        private Status $status,
     ) {
     }
 
@@ -31,6 +33,11 @@ class Step implements \JsonSerializable, ArrayParseable, FetchHydration
         return $this->order;
     }
 
+    public function getStatus(): Status
+    {
+        return $this->status;
+    }
+
     public function jsonSerialize(): mixed
     {
         $json = new \stdClass();
@@ -45,9 +52,10 @@ class Step implements \JsonSerializable, ArrayParseable, FetchHydration
     public function toArray(): array
     {
         return [
-            'id' => $this->getId(),
+            'id' => (string)$this->getId(),
             'title' => $this->getTitle(),
-            'order' => $this->getOrder()
+            'order' => $this->getOrder(),
+            'status' => $this->getStatus()->value,
         ];
     }
 
@@ -57,7 +65,8 @@ class Step implements \JsonSerializable, ArrayParseable, FetchHydration
         return new self(
             new StepId($fetch->id),
             $fetch->title,
-            $fetch->order
+            $fetch->order,
+            Status::from($fetch->status)
         );
     }
 }

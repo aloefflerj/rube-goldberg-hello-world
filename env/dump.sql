@@ -87,6 +87,14 @@ CREATE TABLE IF NOT EXISTS `steps` (
     `id` CHAR(36) NOT NULL,
     `title` VARCHAR(255) NOT NULL,
     `order` INT(255) NOT NULL,
+    `status` ENUM('waiting', 'ongoing', 'finished') DEFAULT 'waiting',
     PRIMARY KEY (`id`),
     CONSTRAINT `unique_order` UNIQUE (`order`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+INSERT INTO `steps` VALUES (
+    '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+    'prologue',
+    1,
+    'ongoing'
+);
