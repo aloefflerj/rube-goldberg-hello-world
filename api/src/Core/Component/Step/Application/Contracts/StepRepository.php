@@ -10,4 +10,7 @@ interface StepRepository
     public function __construct(DatabaseDriver $db);
     public function fetchAll(string $orderBy): RepositoryIterator;
     public function findById(string $id): ?\stdClass;
+    public function fetchCurrentActiveStep(): ?\stdClass;
+    public function updateStatus(string $id, string $status): bool;
+    public function updateStatusByOrder(int $order, string $status): bool;
 }

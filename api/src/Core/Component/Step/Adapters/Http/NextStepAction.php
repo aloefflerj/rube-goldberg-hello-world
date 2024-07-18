@@ -2,16 +2,15 @@
 
 namespace Aloefflerj\UniverseOriginApi\Core\Component\Step\Adapters\Http;
 
-use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\UseCase\Boundaries\FetchSpeechesByStepDTO;
-use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\UseCase\FetchStepSpeechesUseCase;
+use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\UseCase\NextStepUseCase;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Http\ApiAction;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-final class FetchStepSpeechesAction extends ApiAction
+final class NextStepAction extends ApiAction
 {
-    public function __construct(private FetchStepSpeechesUseCase $useCase)
+    public function __construct(private NextStepUseCase $useCase)
     {
     }
 
@@ -21,8 +20,7 @@ final class FetchStepSpeechesAction extends ApiAction
         array $args
     ): ResponseInterface {
         StackLogger::sendStatically();
-        $input = new FetchSpeechesByStepDTO($args['id']);
-        $ouptup = $this->useCase->findByStep($input);
+        $ouptup = $this->useCase->next();
         StackLogger::sendStatically();
 
         $res->getBody()->write(

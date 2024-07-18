@@ -38,6 +38,11 @@ class Step implements \JsonSerializable, ArrayParseable, FetchHydration
         return $this->status;
     }
 
+    public function getNextStepOrder(): int
+    {
+        return $this->getOrder() + 1;
+    }
+
     public function jsonSerialize(): mixed
     {
         $json = new \stdClass();
