@@ -4,28 +4,8 @@ use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\CreatePar
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\FetchParticlesAction;
 use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Http\FindParticleAction;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Interfaces\RouteCollectorProxyInterface;
-
-/** @var \Slim\App $app */
-$app->options('/{routes:.+}', function ($request, $response, $args) {
-    return $response;
-});
-
-$app->add(function ($request, $handler) {
-    $response = $handler->handle($request);
-    return $response
-        ->withHeader('Access-Control-Allow-Origin', '*')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, debug')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-});
-
-$app->get('/', function (RequestInterface $req, ResponseInterface $res, array $args) {
-    $res->getBody()->write("hello");
-    return $res;
-});
 
 $app->group('/particles', function (RouteCollectorProxyInterface $group) {
     StackLogger::sendStatically();
