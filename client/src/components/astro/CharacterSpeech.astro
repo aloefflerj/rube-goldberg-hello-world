@@ -1,11 +1,15 @@
 ---
+import { useSteps } from "../../hooks/useSteps";
 import SpeechTextBox from "./elements/SpeechTextBox.astro";
 
 const { currentStep } = Astro.props;
+
+const { fetchSpeechesByStep } = useSteps(true);
+const spechesByStep = await fetchSpeechesByStep(currentStep.id).then((response) => response.data.speeches)
 ---
 
 <div class="speech-box">
-    <SpeechTextBox currentStep={currentStep} />
+    <SpeechTextBox spechesByStep={spechesByStep} />
 </div>
 
 <style>

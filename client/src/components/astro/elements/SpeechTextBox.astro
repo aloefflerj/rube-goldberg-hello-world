@@ -1,5 +1,5 @@
 ---
-const { currentStep } = Astro.props;
+const { spechesByStep } = Astro.props;
 ---
 
 <div class="speech-text">
@@ -50,36 +50,23 @@ const { currentStep } = Astro.props;
     }
 </style>
 
-<script lang="ts" define:vars={{ currentStep }}>
+<script lang="ts" define:vars={{ spechesByStep }}>
     const speeds = {
         pause: 500,
-        slow: 120,
-        normal: 70,
-        fast: 40,
+        slow: 100,
+        normal: 40,
+        fast: 20,
     };
-
-    const dialoguesByStep = {
-        prologue: [
-            { content: "Hey.", speed: speeds.normal },
-            {
-                content: "What's up?",
-                speed: speeds.normal,
-                highlight: true,
-            },
-            { content: "I'm great!", speed: speeds.fast },
-        ],
-    };
-    const textLines = dialoguesByStep[currentStep.title];
 
     const container = document.querySelector(".speech-text");
 
     let characters = [];
-    textLines.forEach((line, index) => {
+    spechesByStep.forEach((line, index) => {
         if (container === null) {
             return;
         }
 
-        if (index < textLines.length - 1) {
+        if (index < spechesByStep.length - 1) {
             line.content += " ";
         }
 
@@ -91,7 +78,7 @@ const { currentStep } = Astro.props;
             characters.push({
                 span: span,
                 isSpace: character === " ",
-                delayAfter: line.speed,
+                delayAfter: speeds[line.speed],
                 highlight: line.highlight || false,
             });
         });
