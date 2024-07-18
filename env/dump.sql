@@ -83,11 +83,10 @@ VALUES (
     );
 
 -- ------------------------
-
 CREATE TABLE IF NOT EXISTS `steps` (
     `id` CHAR(36) NOT NULL,
     `title` VARCHAR(255) NOT NULL,
     `order` INT(255) NOT NULL,
     PRIMARY KEY (`id`),
-    KEY `order` (`order`)
+    CONSTRAINT `unique_order` UNIQUE (`order`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
