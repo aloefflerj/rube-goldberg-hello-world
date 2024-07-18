@@ -15,7 +15,6 @@ export function Button({
             border: 0;
             cursor: pointer;
             box-shadow: 0 0 5px 1px #2d6ba5;
-            font-family: 'Times New Roman';
             font-size: 24px;
             font-weight: bold;
             color: #2d6ba5;
