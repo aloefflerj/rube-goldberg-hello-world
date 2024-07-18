@@ -1,0 +1,113 @@
+---
+
+---
+
+<div class="speech-text">
+    <svg
+        class="corner"
+        viewBox="0 0 65 62"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="#f0d3de"></path>
+    </svg>
+</div>
+
+<style is:global>
+    .speech-text span {
+        opacity: 0;
+        display: inline;
+    }
+
+    .speech-text span.revealed {
+        opacity: 1;
+    }
+
+    .speech-text span.highlight {
+        color: #bd517a;
+    }
+
+    .speech-text {
+        font-size: 1.7em;
+        font-weight: bold;
+        color: #741d3e;
+        word-spacing: 0.2em;
+        margin: 0 auto;
+        background: #f0d3de;
+        padding: 0.7em;
+        border-bottom: 0.4em solid #741d3e;
+        position: relative;
+        line-height: 1.2em;
+        margin: 12px;
+    }
+
+    .corner {
+        position: absolute;
+        width: 2vw;
+        right: 6vw;
+        bottom: 0;
+        transform: translateY(80%);
+    }
+</style>
+
+<script lang="ts" defer>
+    const speeds = {
+        pause: 500,
+        slow: 120,
+        normal: 70,
+        fast: 40,
+    };
+
+    const textLines = [
+        { content: "Hey.", speed: speeds.normal },
+        {
+            content: "What's up?",
+            speed: speeds.normal,
+            classes: ["highlight"],
+        },
+        { content: "I'm great!", speed: speeds.fast },
+    ];
+
+    const container = document.querySelector(".speech-text");
+
+    let characters = [];
+    textLines.forEach((line, index) => {
+        if (container === null) {
+            return;
+        }
+
+        if (index < textLines.length - 1) {
+            line.content += " ";
+        }
+
+        line.content.split("").forEach((character) => {
+            let span = document.createElement("span");
+            span.textContent = character;
+
+            container.appendChild(span);
+            characters.push({
+                span: span,
+                isSpace: character === " ",
+                delayAfter: line.speed,
+                classes: line.classes || [],
+            });
+        });
+    });
+
+    function revealOneCharacter(list) {
+        let next = list.splice(0, 1)[0];
+        next.span.classList.add("revealed");
+        next.classes.forEach((c) => {
+            next.span.classList.add(c);
+        });
+
+        const delay = next.isSpace ? 0 : next.delayAfter;
+        if (list.length > 0) {
+            setTimeout(() => {
+                revealOneCharacter(list);
+            }, delay);
+        }
+    }
+
+    revealOneCharacter(characters);
+</script>

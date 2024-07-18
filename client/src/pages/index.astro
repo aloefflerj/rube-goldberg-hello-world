@@ -11,27 +11,33 @@ import ButtonsController from "../components/react/ButtonsController";
 import BoxBody from "../components/astro/BoxBody.astro";
 
 const { fetchParticles } = useParticles(true);
-const particles = await fetchParticles().then(response => response.data.particles);
+const particles = await fetchParticles().then(
+	(response) => response.data.particles,
+);
 ---
 
 <Layout title="Hello World">
 	<main>
 		<ReactBox client:load title="React">
-			<ButtonsController client:load particles={particles}/>
+			<ButtonsController client:load particles={particles} />
 		</ReactBox>
 		<VueBox client:only="vue" title="Vue">
 			<AppDetailsLog client:only="vue" />
 		</VueBox>
 		<SvelteBox client:load title="Svelte">
-			<ParticlesFetcher client:load particles={particles}/>
+			<ParticlesFetcher client:load particles={particles} />
 		</SvelteBox>
 		<AstroBox title="Astro">
-			<BoxBody slot="body"/>
+			<BoxBody slot="body" />
 		</AstroBox>
 	</main>
 </Layout>
 
-<style>
+<style is:global>
+	body {
+		font-family: "monospace";
+	}
+
 	main {
 		height: 100vh;
 		width: 100vw;
