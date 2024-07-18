@@ -1,0 +1,33 @@
+---
+import character from '../../../public/assets/rube-guy.gif'
+---
+
+<div class="character-box">
+    <div class="character-wrapper">
+        <img src={character.src} alt="">
+    </div>
+</div>
+
+<style>
+    div.character-box {
+        width: 100%;
+        grid-area: 2 / 2 / 3 / 3;
+        display: flex;
+        align-items: end;
+    }
+
+    div.character-box div.character-wrapper {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        padding-right: 24px;
+    }
+
+    div.character-box div.character-wrapper img {
+        width: 45%;
+        image-rendering: pixelated;
+    }
+</style>

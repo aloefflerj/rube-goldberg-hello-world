@@ -8,6 +8,7 @@ import AppDetailsLog from "../components/vue/AppDetailsLog.vue";
 import AstroBox from "../components/astro/AstroBox.astro";
 import { useParticles } from "../hooks/useParticles";
 import ButtonsController from "../components/react/ButtonsController";
+import BoxBody from "../components/astro/BoxBody.astro";
 
 const { fetchParticles } = useParticles(true);
 const particles = await fetchParticles().then(response => response.data.particles);
@@ -25,7 +26,7 @@ const particles = await fetchParticles().then(response => response.data.particle
 			<ParticlesFetcher client:load particles={particles}/>
 		</SvelteBox>
 		<AstroBox title="Astro">
-			<div id="socket-response" slot="body"></div>
+			<BoxBody slot="body"/>
 		</AstroBox>
 	</main>
 </Layout>
@@ -39,20 +40,3 @@ const particles = await fetchParticles().then(response => response.data.particle
 		grid-template-rows: 50% 50%;
 	}
 </style>
-
-<script>
-	const wsUrl = "ws://localhost:16000/newEntity/astro";
-	const webSocket = new WebSocket(wsUrl);
-
-	webSocket.onmessage = (e) => {
-		const response = JSON.parse(e.data.toString());
-		const socketResponseElement =
-			document.getElementById("socket-response");
-
-		if (socketResponseElement === null) {
-			return;
-		}
-
-		socketResponseElement.innerHTML = "<h1><pre>" + response + "</pre><h1>";
-	};
-</script>
