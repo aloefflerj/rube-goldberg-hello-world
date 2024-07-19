@@ -8,5 +8,6 @@ use Aloefflerj\UniverseOriginApi\Shared\Component\Domain\Extension\Iterators\Con
 interface SpeechRepository
 {
     public function __construct(DatabaseDriver $db);
+    public function fetchAll(string $orderBy): RepositoryIterator;
     public function fetchByStepId(string $stepId, string $orderBy): RepositoryIterator;
 }

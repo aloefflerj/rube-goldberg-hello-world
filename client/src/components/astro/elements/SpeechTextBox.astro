@@ -2,9 +2,10 @@
 import { speedValues } from "../../../helpers/Speed";
 import type Speech from "../../../types/Speech";
 interface Props {
-    speechesByStep: Speech[];
+    speeches: Speech[];
+    initialStepId: string;
 }
-const { speechesByStep } = Astro.props;
+const { speeches, initialStepId } = Astro.props;
 ---
 
 <div class="speech-text">
@@ -55,33 +56,7 @@ const { speechesByStep } = Astro.props;
     }
 </style>
 
-<script lang="ts" define:vars={{ speechesByStep, speedValues }}>
-    const container = document.querySelector(".speech-text");
-
-    let characters = [];
-    speechesByStep.forEach((line, index) => {
-        if (container === null) {
-            return;
-        }
-
-        if (index < speechesByStep.length - 1) {
-            line.content += " ";
-        }
-
-        line.content.split("").forEach((character) => {
-            let span = document.createElement("span");
-            span.textContent = character;
-
-            container.appendChild(span);
-            characters.push({
-                span: span,
-                isSpace: character === " ",
-                delayAfter: speedValues[line.speed],
-                highlight: line.highlight || false,
-            });
-        });
-    });
-
+<script lang="ts" define:vars={{ speeches, initialStepId, speedValues }}>
     function revealOneCharacter(list) {
         let next = list.splice(0, 1)[0];
         next.span.classList.add("revealed");
@@ -97,5 +72,61 @@ const { speechesByStep } = Astro.props;
         }
     }
 
+    function speechesByStep(stepId, speeches) {
+        return speeches.filter((speech) => {
+            return speech.stepId === stepId;
+        });
+    }
+
+    function loadSpeeches(stepId = initialStepId) {
+        const speechTextElement = document.querySelector(".speech-text");
+
+        let currentSpeechesByStep = speechesByStep(stepId, speeches);
+
+        let characters = [];
+        currentSpeechesByStep.forEach((line, index) => {
+            if (speechTextElement === null) {
+                return;
+            }
+
+            if (index < currentSpeechesByStep.length - 1) {
+                line.content += " ";
+            }
+
+            line.content.split("").forEach((character) => {
+                let span = document.createElement("span");
+                span.textContent = character;
+
+                speechTextElement.appendChild(span);
+                characters.push({
+                    span: span,
+                    isSpace: character === " ",
+                    delayAfter: speedValues[line.speed],
+                    highlight: line.highlight || false,
+                });
+            });
+        });
+
+        return characters;
+    }
+
+    function removeSpeeches() {
+        const speechTextElement = document.querySelector(".speech-text");
+        const spansToRemove = speechTextElement.querySelectorAll("span");
+        spansToRemove.forEach((span) => span.remove());
+    }
+
+    const characters = loadSpeeches();
     revealOneCharacter(characters);
+
+    const wsUrl = "ws://localhost:16000/steps/astro";
+    const webSocket = new WebSocket(wsUrl);
+
+    webSocket.onmessage = (e) => {
+        const step = JSON.parse(e.data.toString());
+
+        removeSpeeches();
+        const characters = loadSpeeches(step.id);
+        revealOneCharacter(characters);
+    };
 </script>

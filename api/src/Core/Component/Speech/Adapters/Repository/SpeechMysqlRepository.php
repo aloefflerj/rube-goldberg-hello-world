@@ -43,4 +43,23 @@ class SpeechMysqlRepository implements SpeechRepository
 
         return $this->db->getIterator();
     }
+
+    public function fetchAll(string $orderBy): RepositoryIterator
+    {
+        StackLogger::sendStatically();
+        $orderBy = filter_var($orderBy);
+
+        $this->db->prepare(
+            new Query(<<<SQL
+                SELECT *
+                FROM `speeches`
+                ORDER BY `{$orderBy}`
+            SQL)
+        );
+
+        $this->db->execute();
+        StackLogger::sendStatically();
+
+        return $this->db->getIterator();
+    }
 }

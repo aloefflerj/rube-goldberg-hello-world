@@ -47,7 +47,7 @@ class Step implements \JsonSerializable, ArrayParseable, FetchHydration
     {
         $json = new \stdClass();
 
-        $json->id = $this->getId();
+        $json->id = (string)$this->getId();
         $json->title = $this->getTitle();
         $json->order = $this->getOrder();
 

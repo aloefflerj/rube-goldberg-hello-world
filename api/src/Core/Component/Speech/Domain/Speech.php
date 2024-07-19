@@ -82,7 +82,7 @@ class Speech implements \JsonSerializable, ArrayParseable, FetchHydration
         StackLogger::sendStatically();
         return new self(
             new SpeechId($fetch->id),
-            new StepId($fetch->id),
+            new StepId($fetch->step_id),
             $fetch->order,
             $fetch->content,
             Speed::from($fetch->speed),
