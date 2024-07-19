@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { stepPossibleTitles } from "../../helpers/StepPossibleTitles";
 import { useSteps } from "../../hooks/useSteps";
-import { currentStep, disableButton, disablePrologueButton } from "../../service/Steps.service";
+import { currentStep, disableBigBangButton, disableButton, disablePrologueButton } from "../../service/Steps.service";
 import type Step from "../../types/Step";
 import { RequestButton } from "./elements/RequestButton";
 
@@ -25,8 +25,8 @@ export default function ButtonsController({ steps }: { steps: Step[] }) {
 
         <RequestButton
             text="Big Bang"
-            onClick={() => { }}
-            disabled={step?.title !== stepPossibleTitles.bigBang}
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.bigBang, disableBigBangButton)}
         />
     </>;
 }

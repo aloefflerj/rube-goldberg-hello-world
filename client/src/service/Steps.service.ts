@@ -17,3 +17,7 @@ export function disableButton(currentStep: Step | null, stepTitle: string, callb
 export function disablePrologueButton(): boolean {
     return true;
 }
+
+export function disableBigBangButton(): boolean {
+    return true;
+}
