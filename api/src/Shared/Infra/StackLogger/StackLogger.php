@@ -61,6 +61,8 @@ class StackLogger
             preg_match("/\w+Action/", $className) => AbstractionLayer::ADAPTER->value,
             preg_match("/\w+MysqlRepository/", $className) => AbstractionLayer::ADAPTER->value,
             preg_match("/MysqlDatabaseDriver/", $className) => AbstractionLayer::FRAMEWORK_DRIVER->value,
+            preg_match("/\w+AmqpMessaging/", $className) => AbstractionLayer::ADAPTER->value,
+            preg_match("/AmqpDriver/", $className) => AbstractionLayer::FRAMEWORK_DRIVER->value,
             preg_match("/\w+UseCase/", $className) => AbstractionLayer::USE_CASE->value,
             preg_match("/[\w\\\]+Domain\\\.+/", $fullClassName) => AbstractionLayer::DOMAIN->value,
             default => AbstractionLayer::UNKNOWN->value
@@ -71,6 +73,8 @@ class StackLogger
             preg_match("/\w+Action/", $className) => AbstractionType::WEB_ADAPTER->value,
             preg_match("/\w+MysqlRepository/", $className) => AbstractionType::MYSQL_ADAPTER->value,
             preg_match("/MysqlDatabaseDriver/", $className) => AbstractionType::MYSQL_DRIVER->value,
+            preg_match("/\w+AmqpMessaging/", $className) => AbstractionType::AMQP_ADAPTER->value,
+            preg_match("/AmqpDriver/", $className) => AbstractionType::AMQP_DRIVER->value,
             preg_match("/\w+UseCase/", $className) => AbstractionType::USE_CASE->value,
             preg_match("/[\w\\\]+Domain\\\.+/", $fullClassName) => AbstractionType::DOMAIN->value,
             default => AbstractionLayer::UNKNOWN->value

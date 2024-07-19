@@ -1,15 +1,15 @@
 <?php
 
-namespace Aloefflerj\UniverseOriginApi\Core\Component\Particle\Adapters\Messaging;
+namespace Aloefflerj\UniverseOriginApi\Core\Component\Step\Adapters\Messaging;
 
-use Aloefflerj\UniverseOriginApi\Core\Component\Particle\Application\Contracts\ParticlesMessaging;
+use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\Contracts\StepMessaging;
 use Aloefflerj\UniverseOriginApi\Shared\Component\Adapters\Messaging\Contracts\MessagingDriver;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\Drivers\Ampq\AmqpDriver;
 use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 
-class ParticlesAmqpMessaging implements ParticlesMessaging
+class StepAmqpMessaging implements StepMessaging
 {
-    public const QUEUE = 'newEntity';
+    public const QUEUE = 'steps';
     private AmqpDriver $messaging;
 
     public function __construct(MessagingDriver $messaging)

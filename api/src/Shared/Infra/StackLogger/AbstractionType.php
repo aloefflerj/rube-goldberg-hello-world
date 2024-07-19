@@ -12,6 +12,9 @@ enum AbstractionType: string
     case MYSQL_DRIVER = 'mysqlDriver';
     case MYSQL_ADAPTER = 'mysqlAdapter';
     
+    case AMQP_DRIVER = 'amqpDriver';
+    case AMQP_ADAPTER = 'amqpAdapter';
+    
     case USE_CASE = 'useCase';
     case DOMAIN = 'domain';
 

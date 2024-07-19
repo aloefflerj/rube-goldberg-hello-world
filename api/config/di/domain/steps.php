@@ -4,6 +4,7 @@ use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\Contracts\StepR
 use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\UseCase\FetchStepsUseCase;
 use Aloefflerj\UniverseOriginApi\Core\Component\Step\Adapters\Http\FetchStepsAction;
 use Aloefflerj\UniverseOriginApi\Core\Component\Step\Adapters\Http\NextStepAction;
+use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\Contracts\StepMessaging;
 use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\UseCase\NextStepUseCase;
 use DI\Container;
 
@@ -23,6 +24,9 @@ $container->set(NextStepAction::class, function (Container $c) {
         new NextStepUseCase(
             $c->get(
                 StepRepository::class
+            ),
+            $c->get(
+                StepMessaging::class
             )
         )
     );

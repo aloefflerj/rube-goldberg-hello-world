@@ -12,13 +12,13 @@ const { currentStep } = Astro.props;
 const { fetchSpeechesByStep } = useSteps(true);
 
 const stepId = currentStep ? currentStep.id : '';
-const spechesByStep = await fetchSpeechesByStep(stepId).then(
+const speechesByStep = await fetchSpeechesByStep(stepId).then(
     (response) => response.data.speeches,
 );
 ---
 
 <div class="speech-box">
-    <SpeechTextBox spechesByStep={spechesByStep} />
+    <SpeechTextBox speechesByStep={speechesByStep} />
 </div>
 
 <style>

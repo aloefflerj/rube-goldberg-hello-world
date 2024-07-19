@@ -27,3 +27,9 @@ cleanArchMQSender.consumeAndSend();
 const newEntityMQSender = new MQSender('newEntity', webSocketServerHandler);
 newEntityMQSender.consumeAndSend();
 /** ================================= */
+
+
+/** ===== STEP UPDATE QUEUE ===== */
+const stepMQSender = new MQSender('steps', webSocketServerHandler);
+stepMQSender.consumeAndSend();
+/** ================================= */

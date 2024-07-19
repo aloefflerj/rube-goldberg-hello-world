@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\UseCase;
 
+use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\Contracts\StepMessaging;
 use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\Contracts\StepRepository;
 use Aloefflerj\UniverseOriginApi\Core\Component\Step\Application\UseCase\Boundaries\NextStepResponseDTO;
 use Aloefflerj\UniverseOriginApi\Core\Component\Step\Domain\Step;
@@ -14,24 +15,32 @@ use Aloefflerj\UniverseOriginApi\Shared\Infra\StackLogger\StackLogger;
 
 final class NextStepUseCase
 {
-    public function __construct(private StepRepository $repository)
-    {
+    public function __construct(
+        private StepRepository $repository,
+        private StepMessaging $messaging,
+    ) {
     }
 
     public function next(): NextStepResponseDTO|NotUpdatedDTO|NotFoundDTO
     {
-        if (!$currentStep = $this->fetchCurrentStep())
+        if (!$currentStep = $this->fetchCurrentStep()) {
             return new NotFoundDTO();
+        }
 
-        if (!$this->finishCurrentStep($currentStep))
+        if (!$this->finishCurrentStep($currentStep)) {
             return new NotUpdatedDTO();
+        }
 
-        if (!$this->setNextStepAsOnGoing($currentStep))
+        if (!$this->setNextStepAsOnGoing($currentStep)) {
             return new NotUpdatedDTO();
+        }
 
-        if (!$currentStep = $this->fetchCurrentStep())
+        if (!$currentStep = $this->fetchCurrentStep()) {
             return new NotFoundDTO();
-    
+        }
+
+        $this->sendNewCurrentStepMessage($currentStep);
+
         return new NextStepResponseDTO(
             $currentStep->toArray()
         );
@@ -42,7 +51,7 @@ final class NextStepUseCase
         StackLogger::sendStatically();
         $fetchedCurrentStep = $this->repository->fetchCurrentActiveStep();
         StackLogger::sendStatically();
-        
+
         return $fetchedCurrentStep ? Step::hydrateByFetch($fetchedCurrentStep) : null;
     }
 
@@ -54,7 +63,7 @@ final class NextStepUseCase
             Status::FINISHED->value
         );
         StackLogger::sendStatically();
-        
+
         return $updated;
     }
 
@@ -68,5 +77,12 @@ final class NextStepUseCase
         StackLogger::sendStatically();
 
         return $updated;
+    }
+
+    private function sendNewCurrentStepMessage(Step $currentStep): void
+    {
+        StackLogger::sendStatically();
+        $this->messaging->send($currentStep->jsonSerialize());
+        StackLogger::sendStatically();
     }
 }

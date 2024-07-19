@@ -7,7 +7,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-final class AmpqDriver implements MessagingDriver
+final class AmqpDriver implements MessagingDriver
 {
     public function __construct(
         private AMQPStreamConnection $amqpConnection,

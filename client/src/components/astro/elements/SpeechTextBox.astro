@@ -2,9 +2,9 @@
 import { speedValues } from "../../../helpers/Speed";
 import type Speech from "../../../types/Speech";
 interface Props {
-    spechesByStep: Speech[];
+    speechesByStep: Speech[];
 }
-const { spechesByStep } = Astro.props;
+const { speechesByStep } = Astro.props;
 ---
 
 <div class="speech-text">
@@ -55,16 +55,16 @@ const { spechesByStep } = Astro.props;
     }
 </style>
 
-<script lang="ts" define:vars={{ spechesByStep, speedValues }}>
+<script lang="ts" define:vars={{ speechesByStep, speedValues }}>
     const container = document.querySelector(".speech-text");
 
     let characters = [];
-    spechesByStep.forEach((line, index) => {
+    speechesByStep.forEach((line, index) => {
         if (container === null) {
             return;
         }
 
-        if (index < spechesByStep.length - 1) {
+        if (index < speechesByStep.length - 1) {
             line.content += " ";
         }
 
