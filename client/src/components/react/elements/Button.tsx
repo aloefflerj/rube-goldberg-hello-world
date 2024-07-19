@@ -1,11 +1,13 @@
 export function Button({
     text,
     onClick,
-    disabled = false
+    disabled = false,
+    fontSize = '24px',
 }: {
     text: string,
     onClick: () => void,
-    disabled: boolean
+    disabled: boolean,
+    fontSize: string,
 }) {
     const style = `
         .react-button {
@@ -30,6 +32,7 @@ export function Button({
         <button className='react-button'
             onClick={onClick}
             disabled={disabled}
+            style={{ fontSize: fontSize }}
         >
             {text}
         </button>

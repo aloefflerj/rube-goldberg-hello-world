@@ -9,5 +9,5 @@ export function RequestButton({
     onClick: () => void,
     disabled: boolean
 }) {
-    return <Button text={text} onClick={onClick} disabled={disabled} />
+    return <Button text={text} onClick={onClick} disabled={disabled} fontSize="24px"/>
 }
