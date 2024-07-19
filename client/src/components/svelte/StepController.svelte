@@ -1,10 +1,13 @@
 <script lang="ts">
-    export let steps: any[] = [];
+    import type Step from "../../types/Step";
+    import { currentStep } from '../../service/Steps.service';
 
-    const currentStep = steps.find((step) => step.status === "ongoing");
+    export let steps: Step[] = [];
+
+    const step = currentStep(steps);
 </script>
 
-{#if currentStep.title === "prologue"}
+{#if step?.title === "prologue"}
     <h1>prologue</h1>
 {:else}
     <h1>not found</h1>

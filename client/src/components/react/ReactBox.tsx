@@ -28,8 +28,8 @@ export default function ReactComponent(
                     height: '90%',
                     display: 'grid',
                     gap: '20px',
-                    gridTemplateColumns: '1fr 1fr 1fr',
-                    gridTemplateRows: '1fr 1fr 1fr',
+                    gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                    gridTemplateRows: '1fr 1fr 1fr 1fr',
                     padding: '20px',
                     boxSizing: 'border-box',
                 }}>

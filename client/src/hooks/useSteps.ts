@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import { get } from '../ApiRequest';
+import { get, post } from '../ApiRequest';
 import type Step from '../types/Step';
 import type Speech from '../types/Speech';
 
@@ -20,4 +20,8 @@ export const useSteps = (callFromServer = false) => ({
     ): Promise<AxiosResponse<{ speeches: Speech[] }, any>> => get(
         `${routeBaseUrl}/${stepId}/speeches`, debug, callFromServer
     ),
+
+    nextStep: (debug: boolean = false): Promise<AxiosResponse<{ step: Step }, any>> => post(
+        `${routeBaseUrl}/next`, debug, callFromServer
+    )
 });

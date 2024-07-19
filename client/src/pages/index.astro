@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import ReactBox from "../components/react/ReactBox";
 import SvelteBox from "../components/svelte/SvelteBox.svelte";
-import ParticlesFetcher from "../components/svelte/ParticlesFetcher.svelte";
 import VueBox from "../components/vue/VueBox.vue";
 import AppDetailsLog from "../components/vue/AppDetailsLog.vue";
 import AstroBox from "../components/astro/AstroBox.astro";
@@ -24,7 +23,7 @@ const steps = await fetchSteps().then((response) => response.data.steps);
 <Layout title="Hello World">
 	<main>
 		<ReactBox client:load title="React">
-			<ButtonsController client:load particles={particles} />
+			<ButtonsController client:load steps={steps} />
 		</ReactBox>
 		<VueBox client:only="vue" title="Vue">
 			<AppDetailsLog client:only="vue" />
