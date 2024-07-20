@@ -113,7 +113,7 @@ const { speeches, initialStepId } = Astro.props;
             }
 
             line.content.split("").forEach((character) => {
-                let span = document.createElement("span");
+                const span = document.createElement("span");
                 span.textContent = character;
 
                 speechTextElement.appendChild(span);
@@ -125,6 +125,21 @@ const { speeches, initialStepId } = Astro.props;
                 });
             });
         });
+
+        if (group < calcGroupQuantity(stepId, currentSpeechesByStep)) {
+            const span = document.createElement("span");
+            span.textContent = " ⯈";
+
+            speechTextElement.appendChild(span);
+            characters.push({
+                span: span,
+                isSpace: false,
+                delayAfter: speedValues["normal"],
+                highlight: false,
+            });
+        }
+
+        console.log(characters[characters.length - 1]);
 
         return characters;
     }
