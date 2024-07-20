@@ -45,6 +45,7 @@ const { speeches, initialStepId } = Astro.props;
         position: relative;
         line-height: 1.2em;
         margin: 12px;
+        cursor: pointer;
     }
 
     .corner {
@@ -57,19 +58,30 @@ const { speeches, initialStepId } = Astro.props;
 </style>
 
 <script lang="ts" define:vars={{ speeches, initialStepId, speedValues }}>
-    function revealOneCharacter(list) {
-        let next = list.splice(0, 1)[0];
-        next.span.classList.add("revealed");
-        if (next.highlight) {
-            next.span.classList.add("highlight");
-        }
+    let currentStepId = initialStepId;
+    let currentGroup = 1;
+    let groupQty = calcGroupQuantity();
 
-        const delay = next.isSpace ? 0 : next.delayAfter;
-        if (list.length > 0) {
-            setTimeout(() => {
-                revealOneCharacter(list);
-            }, delay);
-        }
+    const characters = loadSpeeches();
+    revealOneCharacter(characters);
+    loadNextTextEvent();
+    loadStepWebsocket();
+
+    function calcGroupQuantity() {
+        const speecheesByStep = speechesByStep(currentStepId, speeches);
+
+        let groupQuantity = 0;
+        let countedGroups = [];
+        speecheesByStep.forEach((speech) => {
+            if (countedGroups.includes(speech.group)) {
+                return;
+            }
+
+            groupQuantity++;
+            countedGroups.push(speech.group);
+        });
+
+        return groupQuantity;
     }
 
     function speechesByStep(stepId, speeches) {
@@ -78,10 +90,17 @@ const { speeches, initialStepId } = Astro.props;
         });
     }
 
-    function loadSpeeches(stepId = initialStepId) {
+    function speechesByGroup(group, speeches) {
+        return speeches.filter((speech) => {
+            return speech.group === group;
+        });
+    }
+
+    function loadSpeeches(stepId = initialStepId, group = 1) {
         const speechTextElement = document.querySelector(".speech-text");
 
         let currentSpeechesByStep = speechesByStep(stepId, speeches);
+        currentSpeechesByStep = speechesByGroup(group, currentSpeechesByStep);
 
         let characters = [];
         currentSpeechesByStep.forEach((line, index) => {
@@ -110,23 +129,54 @@ const { speeches, initialStepId } = Astro.props;
         return characters;
     }
 
+    function revealOneCharacter(list) {
+        let next = list.splice(0, 1)[0];
+        next.span.classList.add("revealed");
+        if (next.highlight) {
+            next.span.classList.add("highlight");
+        }
+
+        const delay = next.isSpace ? 0 : next.delayAfter;
+        if (list.length > 0) {
+            setTimeout(() => {
+                revealOneCharacter(list);
+            }, delay);
+        }
+    }
+
+    function loadStepWebsocket() {
+        const wsUrl = "ws://localhost:16000/steps/astro";
+        const webSocket = new WebSocket(wsUrl);
+
+        webSocket.onmessage = (e) => {
+            const step = JSON.parse(e.data.toString());
+            currentStepId = step.id;
+            groupQty = calcGroupQuantity();
+
+            removeSpeeches();
+            const characters = loadSpeeches(currentStepId);
+            revealOneCharacter(characters);
+        };
+    }
+
     function removeSpeeches() {
         const speechTextElement = document.querySelector(".speech-text");
         const spansToRemove = speechTextElement.querySelectorAll("span");
         spansToRemove.forEach((span) => span.remove());
     }
 
-    const characters = loadSpeeches();
-    revealOneCharacter(characters);
+    function loadNextTextEvent() {
+        const speechTextElement = document.querySelector(".speech-text");
 
-    const wsUrl = "ws://localhost:16000/steps/astro";
-    const webSocket = new WebSocket(wsUrl);
+        speechTextElement.addEventListener("click", nextText, false);
+    }
 
-    webSocket.onmessage = (e) => {
-        const step = JSON.parse(e.data.toString());
-
+    function nextText() {
         removeSpeeches();
-        const characters = loadSpeeches(step.id);
+        const groupQty = calcGroupQuantity();
+        currentGroup = currentGroup < groupQty ? currentGroup + 1 : 1;
+
+        const characters = loadSpeeches(currentStepId, currentGroup);
         revealOneCharacter(characters);
-    };
+    }
 </script>

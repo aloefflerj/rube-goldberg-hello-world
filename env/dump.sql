@@ -112,10 +112,12 @@ VALUES (
     );
 
 -- ------------------------
+
 CREATE TABLE IF NOT EXISTS `speeches` (
     `id` CHAR(36) NOT NULL,
     `step_id` CHAR(36) NOT NULL,
     `order` INT(255) NOT NULL,
+    `group` INT(255) NOT NULL,
     `content` VARCHAR(255) NOT NULL,
     `speed` ENUM(
         'pause',
@@ -134,6 +136,7 @@ VALUES (
         '492e39aa-a363-4555-a980-48f395d509b6',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
         1,
+        1,
         'Hi! Welcome to the',
         'normal',
         0
@@ -142,6 +145,7 @@ VALUES (
         '3bba95ec-c7f7-4493-97a8-31a76376aa65',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
         2,
+        1,
         'Rube Goldberg Hello World.',
         'slow',
         1
@@ -150,6 +154,7 @@ VALUES (
         '646489f9-2a0a-4879-923e-5343b62236be',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
         3,
+        1,
         'The idea of this project is to create a',
         'normal',
         0
@@ -158,6 +163,7 @@ VALUES (
         '2375a2af-2ce3-40a1-ad47-3ec87d3aae3e',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
         4,
+        1,
         '"Hello World"',
         'normal',
         1
@@ -166,13 +172,24 @@ VALUES (
         'db95064f-e22a-432a-848a-8b7eb7e58305',
         '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
         5,
+        1,
         'in the most complicated way.',
+        'normal',
+        0
+    ),
+    (
+        'c91597e6-d7cc-43d6-a1c7-cb70a8566add',
+        '3a73ddac-4d02-4e4a-8f12-1d918c37d9a4',
+        1,
+        2,
+        'Here is how this works...',
         'normal',
         0
     ),
     (
         '98b6776b-4f29-4339-b016-7bd320605333',
         '2ca9be39-cf6c-429e-afb0-d754fa0fb8c6',
+        1,
         1,
         'As the famous Carl Sagan once said,',
         'normal',
@@ -182,6 +199,7 @@ VALUES (
         '7f1b6831-f235-4a4a-8ea8-3d05f1538caf',
         '2ca9be39-cf6c-429e-afb0-d754fa0fb8c6',
         2,
+        1,
         '"If you wish to make an apple pie from scratch, you must first invent the universe."',
         'normal',
         1

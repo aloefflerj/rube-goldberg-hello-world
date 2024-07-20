@@ -15,6 +15,7 @@ class Speech implements \JsonSerializable, ArrayParseable, FetchHydration
         private SpeechId $id,
         private StepId $stepId,
         private int $order,
+        private int $group,
         private string $content,
         private Speed $speed,
         private bool $highlight,
@@ -34,6 +35,11 @@ class Speech implements \JsonSerializable, ArrayParseable, FetchHydration
     public function getOrder(): int
     {
         return $this->order;
+    }
+
+    public function getGroup(): int
+    {
+        return $this->group;
     }
 
     public function getContent(): string
@@ -58,6 +64,7 @@ class Speech implements \JsonSerializable, ArrayParseable, FetchHydration
         $json->id = (string)$this->getId();
         $json->stepId = (string)$this->getStepId();
         $json->order = $this->getOrder();
+        $json->group = $this->getGroup();
         $json->content = $this->getContent();
         $json->speed = $this->getSpeed()->value;
         $json->highlight = $this->isHighlight();
@@ -71,6 +78,7 @@ class Speech implements \JsonSerializable, ArrayParseable, FetchHydration
             'id' => (string)$this->getId(),
             'stepId' => (string)$this->getStepId(),
             'order' => $this->getOrder(),
+            'group' => $this->getGroup(),
             'content' => $this->getContent(),
             'speed' => $this->getSpeed()->value,
             'highlight' => $this->isHighlight(),
@@ -84,6 +92,7 @@ class Speech implements \JsonSerializable, ArrayParseable, FetchHydration
             new SpeechId($fetch->id),
             new StepId($fetch->step_id),
             $fetch->order,
+            $fetch->group,
             $fetch->content,
             Speed::from($fetch->speed),
             (bool)$fetch->highlight
