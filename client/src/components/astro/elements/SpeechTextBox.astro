@@ -8,7 +8,7 @@ interface Props {
 const { speeches, initialStepId } = Astro.props;
 ---
 
-<div class="speech-text">
+<div class="speech-text show-next-text" id="speech-text">
     <svg
         class="corner"
         viewBox="0 0 65 62"
@@ -46,6 +46,7 @@ const { speeches, initialStepId } = Astro.props;
         line-height: 1.2em;
         margin: 12px;
         cursor: pointer;
+        z-index: 10;
     }
 
     .corner {
@@ -60,12 +61,12 @@ const { speeches, initialStepId } = Astro.props;
 <script lang="ts" define:vars={{ speeches, initialStepId, speedValues }}>
     let currentStepId = initialStepId;
     let currentGroup = 1;
-    let groupQty = calcGroupQuantity();
 
     const characters = loadSpeeches();
     revealCharacters(characters);
-    loadNextTextEvent();
     loadStepWebsocket();
+    // loadCharactersInstantlyEvent();
+    loadNextTextEvent();
 
     function calcGroupQuantity() {
         const speecheesByStep = speechesByStep(currentStepId, speeches);
@@ -115,6 +116,7 @@ const { speeches, initialStepId } = Astro.props;
             line.content.split("").forEach((character) => {
                 const span = document.createElement("span");
                 span.textContent = character;
+                span.classList.add("show-next-text");
 
                 speechTextElement.appendChild(span);
                 characters.push({
@@ -126,25 +128,24 @@ const { speeches, initialStepId } = Astro.props;
             });
         });
 
-        if (group < calcGroupQuantity(stepId, currentSpeechesByStep)) {
-            const span = document.createElement("span");
-            span.textContent = " ⯈";
+        const span = document.createElement("span");
+        span.textContent =
+            group < calcGroupQuantity(stepId, currentSpeechesByStep)
+                ? " ⯈"
+                : " ↻";
 
-            speechTextElement.appendChild(span);
-            characters.push({
-                span: span,
-                isSpace: false,
-                delayAfter: speedValues["normal"],
-                highlight: false,
-            });
-        }
-
-        console.log(characters[characters.length - 1]);
+        speechTextElement.appendChild(span);
+        characters.push({
+            span: span,
+            isSpace: false,
+            delayAfter: speedValues["normal"],
+            highlight: false,
+        });
 
         return characters;
     }
 
-    function revealCharacters(list) {
+    function revealCharacters(list, considerDelay = true) {
         let next = list.splice(0, 1)[0];
         next.span.classList.add("revealed");
         if (next.highlight) {
@@ -153,6 +154,11 @@ const { speeches, initialStepId } = Astro.props;
 
         const delay = next.isSpace ? 0 : next.delayAfter;
         if (list.length > 0) {
+            if (!considerDelay) {
+                revealCharacters(list, false);
+                return;
+            }
+
             setTimeout(() => {
                 revealCharacters(list);
             }, delay);
@@ -181,9 +187,15 @@ const { speeches, initialStepId } = Astro.props;
     }
 
     function loadNextTextEvent() {
-        const speechTextElement = document.querySelector(".speech-text");
+        const boxBody = document.querySelector(".box-body");
+        boxBody.addEventListener("click", (e) => {
+            if (e.target.classList.contains('show-next-text')) {
+                nextText();
+                return;
+            }
 
-        speechTextElement.addEventListener("click", nextText, false);
+            showCharactersInstantly();
+        }, false);
     }
 
     function nextText() {
@@ -193,5 +205,11 @@ const { speeches, initialStepId } = Astro.props;
 
         const characters = loadSpeeches(currentStepId, currentGroup);
         revealCharacters(characters);
+    }
+    
+    function showCharactersInstantly() {
+        removeSpeeches();
+        const characters = loadSpeeches(currentStepId, currentGroup);
+        revealCharacters(characters, false);
     }
 </script>
