@@ -63,7 +63,7 @@ const { speeches, initialStepId } = Astro.props;
     let groupQty = calcGroupQuantity();
 
     const characters = loadSpeeches();
-    revealOneCharacter(characters);
+    revealCharacters(characters);
     loadNextTextEvent();
     loadStepWebsocket();
 
@@ -144,7 +144,7 @@ const { speeches, initialStepId } = Astro.props;
         return characters;
     }
 
-    function revealOneCharacter(list) {
+    function revealCharacters(list) {
         let next = list.splice(0, 1)[0];
         next.span.classList.add("revealed");
         if (next.highlight) {
@@ -154,7 +154,7 @@ const { speeches, initialStepId } = Astro.props;
         const delay = next.isSpace ? 0 : next.delayAfter;
         if (list.length > 0) {
             setTimeout(() => {
-                revealOneCharacter(list);
+                revealCharacters(list);
             }, delay);
         }
     }
@@ -170,7 +170,7 @@ const { speeches, initialStepId } = Astro.props;
 
             removeSpeeches();
             const characters = loadSpeeches(currentStepId);
-            revealOneCharacter(characters);
+            revealCharacters(characters);
         };
     }
 
@@ -192,6 +192,6 @@ const { speeches, initialStepId } = Astro.props;
         currentGroup = currentGroup < groupQty ? currentGroup + 1 : 1;
 
         const characters = loadSpeeches(currentStepId, currentGroup);
-        revealOneCharacter(characters);
+        revealCharacters(characters);
     }
 </script>
