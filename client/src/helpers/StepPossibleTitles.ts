@@ -1,4 +1,12 @@
 export const stepPossibleTitles = {
     prologue: 'prologue',
-    bigBang: 'big-bang'
+    beggining: 'beggining',
+    theUniverse: 'the-universe',
+    inflation: 'inflation',
+    bigBang: 'big-bang',
+    nucleosynthesis: 'nucleosynthesis',
+    recombination: 'recombination',
+    firstStars: 'firts-stars',
+    ourSun: 'our-sun',
+    ourPlanet: 'our-planet'
 }

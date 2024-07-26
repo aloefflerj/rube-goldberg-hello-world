@@ -47,25 +47,55 @@ export default function ButtonsController({ steps }: { steps: Step[] }) {
         />
 
         <RequestButton
+            text="The Universe"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.theUniverse, disableBigBangButton)}
+        />
+
+        <RequestButton
+            text="Inflation"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.inflation, disableBigBangButton)}
+        />
+
+        <RequestButton
             text="Big Bang"
             onClick={callNextStep}
             disabled={disableButton(step, stepPossibleTitles.bigBang, disableBigBangButton)}
         />
 
         <RequestButton
-            text="Big Bang"
-            onClick={() => { }}
-            disabled={true}
+            text="Nucleosynthesis"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.nucleosynthesis, disableBigBangButton)}
         />
 
         <RequestButton
-            text="Big Bang"
-            onClick={() => { }}
-            disabled={true}
+            text="Recombination"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.recombination, disableBigBangButton)}
+        />
+
+        <RequestButton
+            text="First Stars"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.firstStars, disableBigBangButton)}
+        />
+
+        <RequestButton
+            text="Our Sun"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.ourSun, disableBigBangButton)}
+        />
+
+        <RequestButton
+            text="Our Planet"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.ourPlanet, disableBigBangButton)}
         />
 
         <Button
-            text={debug.active ? "Deactivate Backend Debug" : "Activate Backend Debug"}
+            text={debug.active ? "Disable Backend Debug" : "Enable Backend Debug"}
             onClick={toggleDebug}
             disabled={false}
             fontSize="16px"
