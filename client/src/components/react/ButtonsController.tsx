@@ -49,47 +49,53 @@ export default function ButtonsController({ steps }: { steps: Step[] }) {
         <RequestButton
             text="The Universe"
             onClick={callNextStep}
-            disabled={disableButton(step, stepPossibleTitles.theUniverse, disableBigBangButton)}
+            disabled={disableButton(step, stepPossibleTitles.beggining, disableBigBangButton)}
         />
 
         <RequestButton
             text="Inflation"
             onClick={callNextStep}
-            disabled={disableButton(step, stepPossibleTitles.inflation, disableBigBangButton)}
+            disabled={disableButton(step, stepPossibleTitles.theUniverse, disableBigBangButton)}
         />
 
         <RequestButton
             text="Big Bang"
             onClick={callNextStep}
-            disabled={disableButton(step, stepPossibleTitles.bigBang, disableBigBangButton)}
+            disabled={disableButton(step, stepPossibleTitles.inflation, disableBigBangButton)}
         />
 
         <RequestButton
             text="Nucleosynthesis"
             onClick={callNextStep}
-            disabled={disableButton(step, stepPossibleTitles.nucleosynthesis, disableBigBangButton)}
+            disabled={disableButton(step, stepPossibleTitles.bigBang, disableBigBangButton)}
         />
 
         <RequestButton
             text="Recombination"
             onClick={callNextStep}
-            disabled={disableButton(step, stepPossibleTitles.recombination, disableBigBangButton)}
+            disabled={disableButton(step, stepPossibleTitles.nucleosynthesis, disableBigBangButton)}
         />
 
         <RequestButton
             text="First Stars"
             onClick={callNextStep}
-            disabled={disableButton(step, stepPossibleTitles.firstStars, disableBigBangButton)}
+            disabled={disableButton(step, stepPossibleTitles.recombination, disableBigBangButton)}
         />
 
         <RequestButton
             text="Our Sun"
             onClick={callNextStep}
-            disabled={disableButton(step, stepPossibleTitles.ourSun, disableBigBangButton)}
+            disabled={disableButton(step, stepPossibleTitles.firstStars, disableBigBangButton)}
         />
 
         <RequestButton
             text="Our Planet"
+            onClick={callNextStep}
+            disabled={disableButton(step, stepPossibleTitles.ourSun, disableBigBangButton)}
+        />
+
+        <RequestButton
+            text="Hello"
             onClick={callNextStep}
             disabled={disableButton(step, stepPossibleTitles.ourPlanet, disableBigBangButton)}
         />
