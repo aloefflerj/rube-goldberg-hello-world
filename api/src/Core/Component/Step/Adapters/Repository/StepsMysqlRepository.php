@@ -125,4 +125,38 @@ class StepsMysqlRepository implements StepRepository
 
         return $updated;
     }
+
+    public function setAllStepsAsWaiting(): bool
+    {
+        StackLogger::sendStatically();
+        $this->db->prepare(
+            new Query(<<<SQL
+                UPDATE `steps`
+                SET `status` = 'waiting'
+                WHERE `order` != 1
+            SQL)
+        );
+
+        $updated = $this->db->execute();
+        StackLogger::sendStatically();
+
+        return $updated;
+    }
+
+    public function setFirstStepAsOngoing(): bool
+    {
+        StackLogger::sendStatically();
+        $this->db->prepare(
+            new Query(<<<SQL
+                UPDATE `steps`
+                SET `status` = 'ongoing'
+                WHERE `order` = 1
+            SQL)
+        );
+        
+        $updated = $this->db->execute();
+        StackLogger::sendStatically();
+
+        return $updated;
+    }
 }

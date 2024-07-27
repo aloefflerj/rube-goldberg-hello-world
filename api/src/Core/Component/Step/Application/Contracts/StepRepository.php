@@ -13,4 +13,6 @@ interface StepRepository
     public function fetchCurrentActiveStep(): ?\stdClass;
     public function updateStatus(string $id, string $status): bool;
     public function updateStatusByOrder(int $order, string $status): bool;
+    public function setAllStepsAsWaiting(): bool;
+    public function setFirstStepAsOngoing(): bool;
 }

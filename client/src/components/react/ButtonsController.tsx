@@ -11,7 +11,7 @@ import type BackentDebug from "../../types/BackentDebug";
 
 export default function ButtonsController({ steps }: { steps: Step[] }) {
     const [step, setStep] = useState<Step | null>(currentStep(steps));
-    const { nextStep } = useSteps();
+    const { nextStep, resetSteps } = useSteps();
 
     let loadedGetDebugInfo = () => { return { active: false } };
     let loadedSetDebugInfo = (value: BackentDebug) => { };
@@ -26,6 +26,11 @@ export default function ButtonsController({ steps }: { steps: Step[] }) {
 
     const callNextStep = async () => {
         const response = await nextStep();
+        setStep(response.data.step);
+    }
+
+    const callResetSteps = async () => {
+        const response = await resetSteps();
         setStep(response.data.step);
     }
 
@@ -103,6 +108,13 @@ export default function ButtonsController({ steps }: { steps: Step[] }) {
         <Button
             text={debug.active ? "Disable Backend Debug" : "Enable Backend Debug"}
             onClick={toggleDebug}
+            disabled={false}
+            fontSize="16px"
+        />
+
+        <Button
+            text="Reset Steps"
+            onClick={callResetSteps}
             disabled={false}
             fontSize="16px"
         />
