@@ -8,5 +8,6 @@ export const stepPossibleTitles = {
     recombination: 'recombination',
     firstStars: 'firts-stars',
     ourSun: 'our-sun',
-    ourPlanet: 'our-planet'
+    ourPlanet: 'our-planet',
+    helloWorld: 'hello-world'
 }
