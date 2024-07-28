@@ -157,6 +157,12 @@ VALUES (
         'our-planet',
         10,
         'waiting'
+    ),
+    (
+        '4240eeef-778f-4fe2-8ae1-5a894d310df1',
+        'hello-world',
+        11,
+        'waiting'
     );
 
 -- ------------------------
@@ -978,6 +984,15 @@ VALUES (
         'bb02d575-812d-4d55-aeed-d1f2133492bc',
         1,
         5,
+        'Hello World.',
+        'slow',
+        1
+    ),
+    (
+        'f28f707b-948f-4ddb-ad19-d6107c906344',
+        '4240eeef-778f-4fe2-8ae1-5a894d310df1',
+        1,
+        1,
         'Hello World.',
         'slow',
         1

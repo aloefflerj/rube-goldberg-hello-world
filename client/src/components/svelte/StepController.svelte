@@ -50,7 +50,9 @@
     {:else if step?.title === stepPossibleTitles.ourPlanet}
         <img src="/assets/our-planet.gif" alt="our-planet"/>
     {:else if step?.title === stepPossibleTitles.helloWorld}
-        <img src="/assets/hello-world.png" alt="hello-world"/>
+        <a href="https://github.com/aloefflerj/rube-goldberg-hello-world" target="_blank">
+            <img src="/assets/hello-world.png" alt="hello-world"/>
+        </a>
     {:else}
         <img src="/assets/beggining.png" alt="beggining"/>
     {/if}
