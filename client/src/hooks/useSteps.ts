@@ -22,10 +22,10 @@ export const useSteps = (callFromServer = false) => ({
     ),
 
     nextStep: (debug: boolean = false): Promise<AxiosResponse<{ step: Step }, any>> => post(
-        `${routeBaseUrl}/next`, debug, callFromServer
+        `${routeBaseUrl}/next`, {}, debug, callFromServer
     ),
 
     resetSteps: (debug: boolean = false): Promise<AxiosResponse<{ step: Step }, any>> => put(
-        `${routeBaseUrl}/reset`, debug, callFromServer
+        `${routeBaseUrl}/reset`, {}, debug, callFromServer
     )
 });

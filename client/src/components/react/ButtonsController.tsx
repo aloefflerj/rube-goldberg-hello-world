@@ -25,12 +25,12 @@ export default function ButtonsController({ steps }: { steps: Step[] }) {
     const [debug, setDebug] = useState<BackentDebug>(loadedGetDebugInfo() ?? { active: false });
 
     const callNextStep = async () => {
-        const response = await nextStep();
+        const response = await nextStep(debug.active);
         setStep(response.data.step);
     }
 
     const callResetSteps = async () => {
-        const response = await resetSteps();
+        const response = await resetSteps(debug.active);
         setStep(response.data.step);
     }
 
