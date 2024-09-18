@@ -58,6 +58,12 @@ flowchart TB
     id11(Render gif)
     style id11 fill:#9d432c,stroke:#d48875,stroke-width:1px,color:#d48875
     end
+    subgraph Vue
+    style Vue fill:#42B883,stroke:#42B883,stroke-width:2px, rx: 2,ry:2
+    direction TB
+    id15(Render debug info)
+    style id15 fill:#37a38c,stroke:#A2FDBA,stroke-width:1px,color:#A2FDBA
+    end
     id0(User)-- 1 -->id1
     id1-- 2 -->id2
     id2-- 3 -->id3
@@ -72,4 +78,5 @@ flowchart TB
     id8-->id10
     id9-->id11
     id13-->id14
+    id14-->id15
 ```
