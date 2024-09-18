@@ -1,6 +1,13 @@
 # rube-goldberg-hello-world
 A hello world with the rube goldberg machine philosophy
 
+Application in use:
+
+
+
+https://github.com/user-attachments/assets/bfadbd37-7493-42ec-b58e-ff3bad98eeb5
+
+
 Architecture:
 ```mermaid
 flowchart TB
